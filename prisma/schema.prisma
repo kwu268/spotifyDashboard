@@ -1,0 +1,86 @@
+datasource db {
+  provider = "postgresql"
+}
+generator client {
+  provider  = "prisma-client"
+  output    = "../generated/prisma"
+  engineType = "client"
+}
+
+model User {
+  userId         Int      @id @default(autoincrement())
+  spotifyId      String   @unique // Used to identify the user with Spotify
+  displayName    String?
+  email          String?
+	accounts Account[]
+  sessions Session[]
+
+  // Tracking Data Sync Status
+  lastSyncAt          DateTime @default(now())
+  totalTracksAnalyzed Int      @default(0)
+
+  // Relationship to tracks
+  historicalTracks Track[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Track {
+	trackId            Int      @id @default(autoincrement())
+	spotifyTrackId String   // Spotify's unique identifier for the track
+	title             String
+  artist            String
+  albumImageUrl     String?
+  playedAt          DateTime // Crucial: When the track was played
+
+  // Spotify Audio Features (for AI and statistical analysis)
+  danceability      Float
+  energy            Float
+  valence           Float
+  tempo             Float
+  instrumentalness  Float
+	acousticness      Float
+
+  // Relationship back to the User who played it
+  userId            Int
+  user              User     @relation(fields: [userId], references: [userId])
+
+  // Ensures we only store one record for a track played at a specific time by a user
+  @@unique([userId, spotifyTrackId, playedAt])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text // This is where Spotify's Refresh Token will be stored
+  access_token      String? @db.Text // This is where Spotify's Access Token will be stored
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String    @id @default(cuid())
+  sessionToken String    @unique
+  userId       Int
+  expires      DateTime
+  user         User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
