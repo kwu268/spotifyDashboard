@@ -17,10 +17,10 @@ import type * as Prisma from "./prismaNamespace"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.0.1",
-  "engineVersion": "f09f2815f091dbba658cdcd2264306d88bb5bda6",
+  "clientVersion": "7.1.0",
+  "engineVersion": "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba",
   "activeProvider": "postgresql",
-  "inlineSchema": "datasource db {\n  provider = \"postgresql\"\n}\n\ngenerator client {\n  provider   = \"prisma-client\"\n  output     = \"../generated/prisma\"\n  engineType = \"client\"\n}\n\nmodel User {\n  userId         Int      @id @default(autoincrement())\n  spotifyId      String   @unique // Used to identify the user with Spotify\n  displayName    String?\n  email          String?\n  accessToken    String // Used for current Spotify API calls\n  refreshToken   String // Used to refresh the Access Token securely\n  tokenExpiresAt DateTime // When the current Access Token expires\n\n  // Tracking Data Sync Status\n  lastSyncAt          DateTime @default(now())\n  totalTracksAnalyzed Int      @default(0)\n\n  // Relationship to tracks\n  historicalTracks Track[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Track {\n  trackId        Int      @id @default(autoincrement())\n  spotifyTrackId String // Spotify's unique identifier for the track\n  title          String\n  artist         String\n  albumImageUrl  String?\n  playedAt       DateTime // Crucial: When the track was played\n\n  // Spotify Audio Features (for AI and statistical analysis)\n  danceability     Float\n  energy           Float\n  valence          Float\n  tempo            Float\n  instrumentalness Float\n  acousticness     Float\n\n  // Relationship back to the User who played it\n  userId Int\n  user   User @relation(fields: [userId], references: [userId])\n\n  // Ensures we only store one record for a track played at a specific time by a user\n  @@unique([userId, spotifyTrackId, playedAt])\n}\n",
+  "inlineSchema": "datasource db {\n  provider = \"postgresql\"\n}\n\ngenerator client {\n  provider   = \"prisma-client\"\n  output     = \"../generated/prisma\"\n  engineType = \"client\"\n}\n\nmodel User {\n  userId      Int       @id @default(autoincrement())\n  spotifyId   String    @unique // Used to identify the user with Spotify\n  displayName String?\n  email       String?   @unique\n  accounts    Account[]\n  sessions    Session[]\n\n  // Tracking Data Sync Status\n  lastSyncAt          DateTime @default(now())\n  totalTracksAnalyzed Int      @default(0)\n\n  // Relationship to tracks\n  historicalTracks Track[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Track {\n  trackId        Int      @id @default(autoincrement())\n  spotifyTrackId String // Spotify's unique identifier for the track\n  title          String\n  artist         String\n  albumImageUrl  String?\n  playedAt       DateTime // Crucial: When the track was played\n\n  // Spotify Audio Features (for AI and statistical analysis)\n  danceability     Float\n  energy           Float\n  valence          Float\n  tempo            Float\n  instrumentalness Float\n  acousticness     Float\n\n  // Relationship back to the User who played it\n  userId Int\n  user   User @relation(fields: [userId], references: [userId])\n\n  // Ensures we only store one record for a track played at a specific time by a user\n  @@unique([userId, spotifyTrackId, playedAt])\n}\n\nmodel Account {\n  id                String  @id @default(cuid())\n  userId            Int\n  type              String\n  provider          String\n  providerAccountId String\n  refresh_token     String? @db.Text // This is where Spotify's Refresh Token will be stored\n  access_token      String? @db.Text // This is where Spotify's Access Token will be stored\n  expires_at        Int?\n  token_type        String?\n  scope             String?\n  id_token          String? @db.Text\n  session_state     String?\n\n  user User @relation(fields: [userId], references: [userId], onDelete: Cascade)\n\n  @@unique([provider, providerAccountId])\n}\n\nmodel Session {\n  id           String   @id @default(cuid())\n  sessionToken String   @unique\n  userId       Int\n  expires      DateTime\n  user         User     @relation(fields: [userId], references: [userId], onDelete: Cascade)\n}\n\nmodel VerificationToken {\n  identifier String\n  token      String   @unique\n  expires    DateTime\n\n  @@unique([identifier, token])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"spotifyId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"displayName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accessToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refreshToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tokenExpiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"lastSyncAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"totalTracksAnalyzed\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"historicalTracks\",\"kind\":\"object\",\"type\":\"Track\",\"relationName\":\"TrackToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Track\":{\"fields\":[{\"name\":\"trackId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"spotifyTrackId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"artist\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"albumImageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"playedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"danceability\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"energy\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"valence\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"tempo\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"instrumentalness\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"acousticness\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"TrackToUser\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"spotifyId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"displayName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"Session\",\"relationName\":\"SessionToUser\"},{\"name\":\"lastSyncAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"totalTracksAnalyzed\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"historicalTracks\",\"kind\":\"object\",\"type\":\"Track\",\"relationName\":\"TrackToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Track\":{\"fields\":[{\"name\":\"trackId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"spotifyTrackId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"artist\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"albumImageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"playedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"danceability\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"energy\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"valence\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"tempo\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"instrumentalness\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"acousticness\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"TrackToUser\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"}],\"dbName\":null},\"Session\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sessionToken\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SessionToUser\"}],\"dbName\":null},\"VerificationToken\":{\"fields\":[{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -62,7 +62,7 @@ export interface PrismaClientConstructor {
    * const users = await prisma.user.findMany()
    * ```
    * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+   * Read more in our [docs](https://pris.ly/d/client).
    */
 
   new <
@@ -84,7 +84,7 @@ export interface PrismaClientConstructor {
  * const users = await prisma.user.findMany()
  * ```
  * 
- * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+ * Read more in our [docs](https://pris.ly/d/client).
  */
 
 export interface PrismaClient<
@@ -113,7 +113,7 @@ export interface PrismaClient<
    * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -125,7 +125,7 @@ export interface PrismaClient<
    * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -136,7 +136,7 @@ export interface PrismaClient<
    * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -148,7 +148,7 @@ export interface PrismaClient<
    * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -193,6 +193,36 @@ export interface PrismaClient<
     * ```
     */
   get track(): Prisma.TrackDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.account`: Exposes CRUD operations for the **Account** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Accounts
+    * const accounts = await prisma.account.findMany()
+    * ```
+    */
+  get account(): Prisma.AccountDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.session`: Exposes CRUD operations for the **Session** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sessions
+    * const sessions = await prisma.session.findMany()
+    * ```
+    */
+  get session(): Prisma.SessionDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.verificationToken`: Exposes CRUD operations for the **VerificationToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VerificationTokens
+    * const verificationTokens = await prisma.verificationToken.findMany()
+    * ```
+    */
+  get verificationToken(): Prisma.VerificationTokenDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

@@ -2,8 +2,7 @@
 
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg'; // <-- Required for the adapter's constructor
-import { PrismaClient } from '../generated/prisma/client';
-
+import { PrismaClient } from "../../generated/prisma/client";
 // 1. Conditional adapter setup
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {

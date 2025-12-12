@@ -41,9 +41,6 @@ export type UserMinAggregateOutputType = {
   spotifyId: string | null
   displayName: string | null
   email: string | null
-  accessToken: string | null
-  refreshToken: string | null
-  tokenExpiresAt: Date | null
   lastSyncAt: Date | null
   totalTracksAnalyzed: number | null
   createdAt: Date | null
@@ -55,9 +52,6 @@ export type UserMaxAggregateOutputType = {
   spotifyId: string | null
   displayName: string | null
   email: string | null
-  accessToken: string | null
-  refreshToken: string | null
-  tokenExpiresAt: Date | null
   lastSyncAt: Date | null
   totalTracksAnalyzed: number | null
   createdAt: Date | null
@@ -69,9 +63,6 @@ export type UserCountAggregateOutputType = {
   spotifyId: number
   displayName: number
   email: number
-  accessToken: number
-  refreshToken: number
-  tokenExpiresAt: number
   lastSyncAt: number
   totalTracksAnalyzed: number
   createdAt: number
@@ -95,9 +86,6 @@ export type UserMinAggregateInputType = {
   spotifyId?: true
   displayName?: true
   email?: true
-  accessToken?: true
-  refreshToken?: true
-  tokenExpiresAt?: true
   lastSyncAt?: true
   totalTracksAnalyzed?: true
   createdAt?: true
@@ -109,9 +97,6 @@ export type UserMaxAggregateInputType = {
   spotifyId?: true
   displayName?: true
   email?: true
-  accessToken?: true
-  refreshToken?: true
-  tokenExpiresAt?: true
   lastSyncAt?: true
   totalTracksAnalyzed?: true
   createdAt?: true
@@ -123,9 +108,6 @@ export type UserCountAggregateInputType = {
   spotifyId?: true
   displayName?: true
   email?: true
-  accessToken?: true
-  refreshToken?: true
-  tokenExpiresAt?: true
   lastSyncAt?: true
   totalTracksAnalyzed?: true
   createdAt?: true
@@ -224,9 +206,6 @@ export type UserGroupByOutputType = {
   spotifyId: string
   displayName: string | null
   email: string | null
-  accessToken: string
-  refreshToken: string
-  tokenExpiresAt: Date
   lastSyncAt: Date
   totalTracksAnalyzed: number
   createdAt: Date
@@ -261,13 +240,12 @@ export type UserWhereInput = {
   spotifyId?: Prisma.StringFilter<"User"> | string
   displayName?: Prisma.StringNullableFilter<"User"> | string | null
   email?: Prisma.StringNullableFilter<"User"> | string | null
-  accessToken?: Prisma.StringFilter<"User"> | string
-  refreshToken?: Prisma.StringFilter<"User"> | string
-  tokenExpiresAt?: Prisma.DateTimeFilter<"User"> | Date | string
   lastSyncAt?: Prisma.DateTimeFilter<"User"> | Date | string
   totalTracksAnalyzed?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  accounts?: Prisma.AccountListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
   historicalTracks?: Prisma.TrackListRelationFilter
 }
 
@@ -276,42 +254,37 @@ export type UserOrderByWithRelationInput = {
   spotifyId?: Prisma.SortOrder
   displayName?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  accessToken?: Prisma.SortOrder
-  refreshToken?: Prisma.SortOrder
-  tokenExpiresAt?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   totalTracksAnalyzed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  accounts?: Prisma.AccountOrderByRelationAggregateInput
+  sessions?: Prisma.SessionOrderByRelationAggregateInput
   historicalTracks?: Prisma.TrackOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   userId?: number
   spotifyId?: string
+  email?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   displayName?: Prisma.StringNullableFilter<"User"> | string | null
-  email?: Prisma.StringNullableFilter<"User"> | string | null
-  accessToken?: Prisma.StringFilter<"User"> | string
-  refreshToken?: Prisma.StringFilter<"User"> | string
-  tokenExpiresAt?: Prisma.DateTimeFilter<"User"> | Date | string
   lastSyncAt?: Prisma.DateTimeFilter<"User"> | Date | string
   totalTracksAnalyzed?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  accounts?: Prisma.AccountListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
   historicalTracks?: Prisma.TrackListRelationFilter
-}, "userId" | "spotifyId">
+}, "userId" | "spotifyId" | "email">
 
 export type UserOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   spotifyId?: Prisma.SortOrder
   displayName?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  accessToken?: Prisma.SortOrder
-  refreshToken?: Prisma.SortOrder
-  tokenExpiresAt?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   totalTracksAnalyzed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -331,9 +304,6 @@ export type UserScalarWhereWithAggregatesInput = {
   spotifyId?: Prisma.StringWithAggregatesFilter<"User"> | string
   displayName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   email?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  accessToken?: Prisma.StringWithAggregatesFilter<"User"> | string
-  refreshToken?: Prisma.StringWithAggregatesFilter<"User"> | string
-  tokenExpiresAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   lastSyncAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   totalTracksAnalyzed?: Prisma.IntWithAggregatesFilter<"User"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -344,13 +314,12 @@ export type UserCreateInput = {
   spotifyId: string
   displayName?: string | null
   email?: string | null
-  accessToken: string
-  refreshToken: string
-  tokenExpiresAt: Date | string
   lastSyncAt?: Date | string
   totalTracksAnalyzed?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   historicalTracks?: Prisma.TrackCreateNestedManyWithoutUserInput
 }
 
@@ -359,13 +328,12 @@ export type UserUncheckedCreateInput = {
   spotifyId: string
   displayName?: string | null
   email?: string | null
-  accessToken: string
-  refreshToken: string
-  tokenExpiresAt: Date | string
   lastSyncAt?: Date | string
   totalTracksAnalyzed?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   historicalTracks?: Prisma.TrackUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -373,13 +341,12 @@ export type UserUpdateInput = {
   spotifyId?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accessToken?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
-  tokenExpiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   historicalTracks?: Prisma.TrackUpdateManyWithoutUserNestedInput
 }
 
@@ -388,13 +355,12 @@ export type UserUncheckedUpdateInput = {
   spotifyId?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accessToken?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
-  tokenExpiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   historicalTracks?: Prisma.TrackUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -403,9 +369,6 @@ export type UserCreateManyInput = {
   spotifyId: string
   displayName?: string | null
   email?: string | null
-  accessToken: string
-  refreshToken: string
-  tokenExpiresAt: Date | string
   lastSyncAt?: Date | string
   totalTracksAnalyzed?: number
   createdAt?: Date | string
@@ -416,9 +379,6 @@ export type UserUpdateManyMutationInput = {
   spotifyId?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accessToken?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
-  tokenExpiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -430,9 +390,6 @@ export type UserUncheckedUpdateManyInput = {
   spotifyId?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accessToken?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
-  tokenExpiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -444,9 +401,6 @@ export type UserCountOrderByAggregateInput = {
   spotifyId?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  accessToken?: Prisma.SortOrder
-  refreshToken?: Prisma.SortOrder
-  tokenExpiresAt?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   totalTracksAnalyzed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -463,9 +417,6 @@ export type UserMaxOrderByAggregateInput = {
   spotifyId?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  accessToken?: Prisma.SortOrder
-  refreshToken?: Prisma.SortOrder
-  tokenExpiresAt?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   totalTracksAnalyzed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -477,9 +428,6 @@ export type UserMinOrderByAggregateInput = {
   spotifyId?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  accessToken?: Prisma.SortOrder
-  refreshToken?: Prisma.SortOrder
-  tokenExpiresAt?: Prisma.SortOrder
   lastSyncAt?: Prisma.SortOrder
   totalTracksAnalyzed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -530,17 +478,44 @@ export type UserUpdateOneRequiredWithoutHistoricalTracksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutHistoricalTracksInput, Prisma.UserUpdateWithoutHistoricalTracksInput>, Prisma.UserUncheckedUpdateWithoutHistoricalTracksInput>
 }
 
+export type UserCreateNestedOneWithoutAccountsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAccountsInput, Prisma.UserUncheckedCreateWithoutAccountsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAccountsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAccountsInput, Prisma.UserUncheckedCreateWithoutAccountsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAccountsInput
+  upsert?: Prisma.UserUpsertWithoutAccountsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
+}
+
+export type UserCreateNestedOneWithoutSessionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+  upsert?: Prisma.UserUpsertWithoutSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+}
+
 export type UserCreateWithoutHistoricalTracksInput = {
   spotifyId: string
   displayName?: string | null
   email?: string | null
-  accessToken: string
-  refreshToken: string
-  tokenExpiresAt: Date | string
   lastSyncAt?: Date | string
   totalTracksAnalyzed?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutHistoricalTracksInput = {
@@ -548,13 +523,12 @@ export type UserUncheckedCreateWithoutHistoricalTracksInput = {
   spotifyId: string
   displayName?: string | null
   email?: string | null
-  accessToken: string
-  refreshToken: string
-  tokenExpiresAt: Date | string
   lastSyncAt?: Date | string
   totalTracksAnalyzed?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutHistoricalTracksInput = {
@@ -577,13 +551,12 @@ export type UserUpdateWithoutHistoricalTracksInput = {
   spotifyId?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accessToken?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
-  tokenExpiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutHistoricalTracksInput = {
@@ -591,13 +564,144 @@ export type UserUncheckedUpdateWithoutHistoricalTracksInput = {
   spotifyId?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accessToken?: Prisma.StringFieldUpdateOperationsInput | string
-  refreshToken?: Prisma.StringFieldUpdateOperationsInput | string
-  tokenExpiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAccountsInput = {
+  spotifyId: string
+  displayName?: string | null
+  email?: string | null
+  lastSyncAt?: Date | string
+  totalTracksAnalyzed?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  historicalTracks?: Prisma.TrackCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAccountsInput = {
+  userId?: number
+  spotifyId: string
+  displayName?: string | null
+  email?: string | null
+  lastSyncAt?: Date | string
+  totalTracksAnalyzed?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  historicalTracks?: Prisma.TrackUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAccountsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAccountsInput, Prisma.UserUncheckedCreateWithoutAccountsInput>
+}
+
+export type UserUpsertWithoutAccountsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAccountsInput, Prisma.UserUncheckedUpdateWithoutAccountsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAccountsInput, Prisma.UserUncheckedCreateWithoutAccountsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAccountsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAccountsInput, Prisma.UserUncheckedUpdateWithoutAccountsInput>
+}
+
+export type UserUpdateWithoutAccountsInput = {
+  spotifyId?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  historicalTracks?: Prisma.TrackUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAccountsInput = {
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  spotifyId?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  historicalTracks?: Prisma.TrackUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSessionsInput = {
+  spotifyId: string
+  displayName?: string | null
+  email?: string | null
+  lastSyncAt?: Date | string
+  totalTracksAnalyzed?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  historicalTracks?: Prisma.TrackCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSessionsInput = {
+  userId?: number
+  spotifyId: string
+  displayName?: string | null
+  email?: string | null
+  lastSyncAt?: Date | string
+  totalTracksAnalyzed?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  historicalTracks?: Prisma.TrackUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSessionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+}
+
+export type UserUpsertWithoutSessionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSessionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+}
+
+export type UserUpdateWithoutSessionsInput = {
+  spotifyId?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  historicalTracks?: Prisma.TrackUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSessionsInput = {
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  spotifyId?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  historicalTracks?: Prisma.TrackUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -606,10 +710,14 @@ export type UserUncheckedUpdateWithoutHistoricalTracksInput = {
  */
 
 export type UserCountOutputType = {
+  accounts: number
+  sessions: number
   historicalTracks: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   historicalTracks?: boolean | UserCountOutputTypeCountHistoricalTracksArgs
 }
 
@@ -626,6 +734,20 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AccountWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountHistoricalTracksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TrackWhereInput
 }
@@ -636,13 +758,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   spotifyId?: boolean
   displayName?: boolean
   email?: boolean
-  accessToken?: boolean
-  refreshToken?: boolean
-  tokenExpiresAt?: boolean
   lastSyncAt?: boolean
   totalTracksAnalyzed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   historicalTracks?: boolean | Prisma.User$historicalTracksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -652,9 +773,6 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   spotifyId?: boolean
   displayName?: boolean
   email?: boolean
-  accessToken?: boolean
-  refreshToken?: boolean
-  tokenExpiresAt?: boolean
   lastSyncAt?: boolean
   totalTracksAnalyzed?: boolean
   createdAt?: boolean
@@ -666,9 +784,6 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   spotifyId?: boolean
   displayName?: boolean
   email?: boolean
-  accessToken?: boolean
-  refreshToken?: boolean
-  tokenExpiresAt?: boolean
   lastSyncAt?: boolean
   totalTracksAnalyzed?: boolean
   createdAt?: boolean
@@ -680,17 +795,16 @@ export type UserSelectScalar = {
   spotifyId?: boolean
   displayName?: boolean
   email?: boolean
-  accessToken?: boolean
-  refreshToken?: boolean
-  tokenExpiresAt?: boolean
   lastSyncAt?: boolean
   totalTracksAnalyzed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "spotifyId" | "displayName" | "email" | "accessToken" | "refreshToken" | "tokenExpiresAt" | "lastSyncAt" | "totalTracksAnalyzed" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "spotifyId" | "displayName" | "email" | "lastSyncAt" | "totalTracksAnalyzed" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   historicalTracks?: boolean | Prisma.User$historicalTracksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -700,6 +814,8 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    accounts: Prisma.$AccountPayload<ExtArgs>[]
+    sessions: Prisma.$SessionPayload<ExtArgs>[]
     historicalTracks: Prisma.$TrackPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -707,9 +823,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     spotifyId: string
     displayName: string | null
     email: string | null
-    accessToken: string
-    refreshToken: string
-    tokenExpiresAt: Date
     lastSyncAt: Date
     totalTracksAnalyzed: number
     createdAt: Date
@@ -1108,6 +1221,8 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   historicalTracks<T extends Prisma.User$historicalTracksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$historicalTracksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1142,9 +1257,6 @@ export interface UserFieldRefs {
   readonly spotifyId: Prisma.FieldRef<"User", 'String'>
   readonly displayName: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
-  readonly accessToken: Prisma.FieldRef<"User", 'String'>
-  readonly refreshToken: Prisma.FieldRef<"User", 'String'>
-  readonly tokenExpiresAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly lastSyncAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly totalTracksAnalyzed: Prisma.FieldRef<"User", 'Int'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -1534,6 +1646,54 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.accounts
+ */
+export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Account
+   */
+  select?: Prisma.AccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Account
+   */
+  omit?: Prisma.AccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AccountInclude<ExtArgs> | null
+  where?: Prisma.AccountWhereInput
+  orderBy?: Prisma.AccountOrderByWithRelationInput | Prisma.AccountOrderByWithRelationInput[]
+  cursor?: Prisma.AccountWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
+}
+
+/**
+ * User.sessions
+ */
+export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
 }
 
 /**
