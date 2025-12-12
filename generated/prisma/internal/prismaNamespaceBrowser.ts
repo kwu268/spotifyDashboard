@@ -75,10 +75,11 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 
 export const UserScalarFieldEnum = {
-  userId: 'userId',
-  spotifyId: 'spotifyId',
-  displayName: 'displayName',
+  id: 'id',
+  name: 'name',
+  image: 'image',
   email: 'email',
+  emailVerified: 'emailVerified',
   lastSyncAt: 'lastSyncAt',
   totalTracksAnalyzed: 'totalTracksAnalyzed',
   createdAt: 'createdAt',
@@ -109,7 +110,6 @@ export type TrackScalarFieldEnum = (typeof TrackScalarFieldEnum)[keyof typeof Tr
 
 export const AccountScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   type: 'type',
   provider: 'provider',
   providerAccountId: 'providerAccountId',
@@ -119,7 +119,8 @@ export const AccountScalarFieldEnum = {
   token_type: 'token_type',
   scope: 'scope',
   id_token: 'id_token',
-  session_state: 'session_state'
+  session_state: 'session_state',
+  userId: 'userId'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -128,8 +129,8 @@ export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeo
 export const SessionScalarFieldEnum = {
   id: 'id',
   sessionToken: 'sessionToken',
-  userId: 'userId',
-  expires: 'expires'
+  expires: 'expires',
+  userId: 'userId'
 } as const
 
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]

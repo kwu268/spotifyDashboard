@@ -818,10 +818,11 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 
 export const UserScalarFieldEnum = {
-  userId: 'userId',
-  spotifyId: 'spotifyId',
-  displayName: 'displayName',
+  id: 'id',
+  name: 'name',
+  image: 'image',
   email: 'email',
+  emailVerified: 'emailVerified',
   lastSyncAt: 'lastSyncAt',
   totalTracksAnalyzed: 'totalTracksAnalyzed',
   createdAt: 'createdAt',
@@ -852,7 +853,6 @@ export type TrackScalarFieldEnum = (typeof TrackScalarFieldEnum)[keyof typeof Tr
 
 export const AccountScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   type: 'type',
   provider: 'provider',
   providerAccountId: 'providerAccountId',
@@ -862,7 +862,8 @@ export const AccountScalarFieldEnum = {
   token_type: 'token_type',
   scope: 'scope',
   id_token: 'id_token',
-  session_state: 'session_state'
+  session_state: 'session_state',
+  userId: 'userId'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -871,8 +872,8 @@ export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeo
 export const SessionScalarFieldEnum = {
   id: 'id',
   sessionToken: 'sessionToken',
-  userId: 'userId',
-  expires: 'expires'
+  expires: 'expires',
+  userId: 'userId'
 } as const
 
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
@@ -918,20 +919,6 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 /**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
  * Reference to a field of type 'String'
  */
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -956,6 +943,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 

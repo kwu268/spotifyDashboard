@@ -34,7 +34,6 @@ export type TrackAvgAggregateOutputType = {
   tempo: number | null
   instrumentalness: number | null
   acousticness: number | null
-  userId: number | null
 }
 
 export type TrackSumAggregateOutputType = {
@@ -45,7 +44,6 @@ export type TrackSumAggregateOutputType = {
   tempo: number | null
   instrumentalness: number | null
   acousticness: number | null
-  userId: number | null
 }
 
 export type TrackMinAggregateOutputType = {
@@ -61,7 +59,7 @@ export type TrackMinAggregateOutputType = {
   tempo: number | null
   instrumentalness: number | null
   acousticness: number | null
-  userId: number | null
+  userId: string | null
 }
 
 export type TrackMaxAggregateOutputType = {
@@ -77,7 +75,7 @@ export type TrackMaxAggregateOutputType = {
   tempo: number | null
   instrumentalness: number | null
   acousticness: number | null
-  userId: number | null
+  userId: string | null
 }
 
 export type TrackCountAggregateOutputType = {
@@ -106,7 +104,6 @@ export type TrackAvgAggregateInputType = {
   tempo?: true
   instrumentalness?: true
   acousticness?: true
-  userId?: true
 }
 
 export type TrackSumAggregateInputType = {
@@ -117,7 +114,6 @@ export type TrackSumAggregateInputType = {
   tempo?: true
   instrumentalness?: true
   acousticness?: true
-  userId?: true
 }
 
 export type TrackMinAggregateInputType = {
@@ -268,7 +264,7 @@ export type TrackGroupByOutputType = {
   tempo: number
   instrumentalness: number
   acousticness: number
-  userId: number
+  userId: string
   _count: TrackCountAggregateOutputType | null
   _avg: TrackAvgAggregateOutputType | null
   _sum: TrackSumAggregateOutputType | null
@@ -307,7 +303,7 @@ export type TrackWhereInput = {
   tempo?: Prisma.FloatFilter<"Track"> | number
   instrumentalness?: Prisma.FloatFilter<"Track"> | number
   acousticness?: Prisma.FloatFilter<"Track"> | number
-  userId?: Prisma.IntFilter<"Track"> | number
+  userId?: Prisma.StringFilter<"Track"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -330,6 +326,7 @@ export type TrackOrderByWithRelationInput = {
 
 export type TrackWhereUniqueInput = Prisma.AtLeast<{
   trackId?: number
+  userId?: string
   userId_spotifyTrackId_playedAt?: Prisma.TrackUserIdSpotifyTrackIdPlayedAtCompoundUniqueInput
   AND?: Prisma.TrackWhereInput | Prisma.TrackWhereInput[]
   OR?: Prisma.TrackWhereInput[]
@@ -345,9 +342,8 @@ export type TrackWhereUniqueInput = Prisma.AtLeast<{
   tempo?: Prisma.FloatFilter<"Track"> | number
   instrumentalness?: Prisma.FloatFilter<"Track"> | number
   acousticness?: Prisma.FloatFilter<"Track"> | number
-  userId?: Prisma.IntFilter<"Track"> | number
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "trackId" | "userId_spotifyTrackId_playedAt">
+}, "trackId" | "userId" | "userId_spotifyTrackId_playedAt">
 
 export type TrackOrderByWithAggregationInput = {
   trackId?: Prisma.SortOrder
@@ -386,7 +382,7 @@ export type TrackScalarWhereWithAggregatesInput = {
   tempo?: Prisma.FloatWithAggregatesFilter<"Track"> | number
   instrumentalness?: Prisma.FloatWithAggregatesFilter<"Track"> | number
   acousticness?: Prisma.FloatWithAggregatesFilter<"Track"> | number
-  userId?: Prisma.IntWithAggregatesFilter<"Track"> | number
+  userId?: Prisma.StringWithAggregatesFilter<"Track"> | string
 }
 
 export type TrackCreateInput = {
@@ -417,7 +413,7 @@ export type TrackUncheckedCreateInput = {
   tempo: number
   instrumentalness: number
   acousticness: number
-  userId: number
+  userId: string
 }
 
 export type TrackUpdateInput = {
@@ -448,7 +444,7 @@ export type TrackUncheckedUpdateInput = {
   tempo?: Prisma.FloatFieldUpdateOperationsInput | number
   instrumentalness?: Prisma.FloatFieldUpdateOperationsInput | number
   acousticness?: Prisma.FloatFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TrackCreateManyInput = {
@@ -464,7 +460,7 @@ export type TrackCreateManyInput = {
   tempo: number
   instrumentalness: number
   acousticness: number
-  userId: number
+  userId: string
 }
 
 export type TrackUpdateManyMutationInput = {
@@ -494,7 +490,7 @@ export type TrackUncheckedUpdateManyInput = {
   tempo?: Prisma.FloatFieldUpdateOperationsInput | number
   instrumentalness?: Prisma.FloatFieldUpdateOperationsInput | number
   acousticness?: Prisma.FloatFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TrackListRelationFilter = {
@@ -508,7 +504,7 @@ export type TrackOrderByRelationAggregateInput = {
 }
 
 export type TrackUserIdSpotifyTrackIdPlayedAtCompoundUniqueInput = {
-  userId: number
+  userId: string
   spotifyTrackId: string
   playedAt: Date | string
 }
@@ -537,7 +533,6 @@ export type TrackAvgOrderByAggregateInput = {
   tempo?: Prisma.SortOrder
   instrumentalness?: Prisma.SortOrder
   acousticness?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
 }
 
 export type TrackMaxOrderByAggregateInput = {
@@ -580,7 +575,6 @@ export type TrackSumOrderByAggregateInput = {
   tempo?: Prisma.SortOrder
   instrumentalness?: Prisma.SortOrder
   acousticness?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
 }
 
 export type TrackCreateNestedManyWithoutUserInput = {
@@ -704,7 +698,7 @@ export type TrackScalarWhereInput = {
   tempo?: Prisma.FloatFilter<"Track"> | number
   instrumentalness?: Prisma.FloatFilter<"Track"> | number
   acousticness?: Prisma.FloatFilter<"Track"> | number
-  userId?: Prisma.IntFilter<"Track"> | number
+  userId?: Prisma.StringFilter<"Track"> | string
 }
 
 export type TrackCreateManyUserInput = {
@@ -864,7 +858,7 @@ export type $TrackPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     tempo: number
     instrumentalness: number
     acousticness: number
-    userId: number
+    userId: string
   }, ExtArgs["result"]["track"]>
   composites: {}
 }
@@ -1301,7 +1295,7 @@ export interface TrackFieldRefs {
   readonly tempo: Prisma.FieldRef<"Track", 'Float'>
   readonly instrumentalness: Prisma.FieldRef<"Track", 'Float'>
   readonly acousticness: Prisma.FieldRef<"Track", 'Float'>
-  readonly userId: Prisma.FieldRef<"Track", 'Int'>
+  readonly userId: Prisma.FieldRef<"Track", 'String'>
 }
     
 

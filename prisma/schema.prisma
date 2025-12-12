@@ -8,10 +8,11 @@ generator client {
 }
 
 model User {
-  userId         Int      @id @default(autoincrement())
-  spotifyId      String   @unique // Used to identify the user with Spotify
-  displayName    String?
-  email          String?
+  id         String      @id @default(cuid())
+  name           String?
+  image          String?
+  email          String? @unique
+  emailVerified  DateTime?
 	accounts Account[]
   sessions Session[]
 
@@ -43,8 +44,8 @@ model Track {
 	acousticness      Float
 
   // Relationship back to the User who played it
-  userId            Int
-  user              User     @relation(fields: [userId], references: [userId])
+  user              User   @relation(fields: [userId], references: [id])
+  userId            String @unique
 
   // Ensures we only store one record for a track played at a specific time by a user
   @@unique([userId, spotifyTrackId, playedAt])
@@ -52,7 +53,6 @@ model Track {
 
 model Account {
   id                String  @id @default(cuid())
-  userId            Int
   type              String
   provider          String
   providerAccountId String
@@ -64,7 +64,8 @@ model Account {
   id_token          String? @db.Text
   session_state     String?
 
-  user User @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String @unique
 
   @@unique([provider, providerAccountId])
 }
@@ -72,9 +73,9 @@ model Account {
 model Session {
   id           String    @id @default(cuid())
   sessionToken String    @unique
-  userId       Int
   expires      DateTime
-  user         User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String @unique
 }
 
 model VerificationToken {
