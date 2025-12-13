@@ -1,4 +1,4 @@
-import prisma from "../../../../lib/prisma";
+import prisma from "@/lib/prisma";
 import NextAuth, { type NextAuthOptions, type Session } from "next-auth";
 import { type JWT } from "next-auth/jwt";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -33,19 +33,17 @@ export const authOptions: NextAuthOptions = {
   // Ensures I can access tokens needed for data fetching
   // Flow: User Signs in -> jwt callback --> returns jwt token with access and refresh tokens -> session callback called with the jwt token from previous step -> session object returned to client with tokens included
   callbacks: {
-
     async signIn({ user, account, profile }) {
-            // 🌟 LOG THE DATA HERE 🌟
-            console.log("--- SIGN IN CALLBACK DATA ---");
-            console.log("User Data (from Provider):", user);
-            console.log("Account (contains tokens/ID):", account);
-            console.log("Profile (full response):", profile);
-            console.log("-----------------------------");
+      // 🌟 LOG THE DATA HERE 🌟
+      console.log("--- SIGN IN CALLBACK ---");
+      // console.log("User Data (from Provider):", user);
+      // console.log("Account (contains tokens/ID):", account);
+      // console.log("Profile (full response):", profile);
+      // console.log("-----------------------------");
 
-            // Return true to allow sign in, or false to block it
-            return true;
-        },
-
+      // Return true to allow sign in, or false to block it
+      return true;
+    },
 
     // This runs immediately after successful sign-in
     // Logic:
@@ -53,6 +51,8 @@ export const authOptions: NextAuthOptions = {
     // 2. if account exists, it means user just signed in, so we store the access and refresh tokens in the JWT
     // 3. else, we just return the existing token (subsequent requests)
     async jwt({ token, account }) {
+      console.log("--- JWT CALLBACK ---");
+
       // Checks if this is the initial sign-in
       if (account) {
         token.accessToken = account.access_token as string;
@@ -69,13 +69,14 @@ export const authOptions: NextAuthOptions = {
     // 2. adds the accessToken, refreshToken, and user ID from the token to the session object
     // 3. returns the modified session object to be used on client side
     async session({ session, token }: { session: Session; token: JWT }) {
+      console.log("--- session CALLBACK ---");
       session.user.id = token.id as string;
-      session.accessToken = token.accessToken as string;
-      session.refreshToken = token.refreshToken as string;
+      // session.accessToken = token.accessToken as string;
+      // session.refreshToken = token.refreshToken as string;
+      console.log("Session Object:", session);
       return session;
     },
   },
-
   // 4. Strategy: Use JWTs stored in secure cookie for mananging user's session state
   session: {
     strategy: "jwt",

@@ -326,8 +326,7 @@ export type TrackOrderByWithRelationInput = {
 
 export type TrackWhereUniqueInput = Prisma.AtLeast<{
   trackId?: number
-  userId?: string
-  userId_spotifyTrackId_playedAt?: Prisma.TrackUserIdSpotifyTrackIdPlayedAtCompoundUniqueInput
+  spotifyTrackId_playedAt?: Prisma.TrackSpotifyTrackIdPlayedAtCompoundUniqueInput
   AND?: Prisma.TrackWhereInput | Prisma.TrackWhereInput[]
   OR?: Prisma.TrackWhereInput[]
   NOT?: Prisma.TrackWhereInput | Prisma.TrackWhereInput[]
@@ -342,8 +341,9 @@ export type TrackWhereUniqueInput = Prisma.AtLeast<{
   tempo?: Prisma.FloatFilter<"Track"> | number
   instrumentalness?: Prisma.FloatFilter<"Track"> | number
   acousticness?: Prisma.FloatFilter<"Track"> | number
+  userId?: Prisma.StringFilter<"Track"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "trackId" | "userId" | "userId_spotifyTrackId_playedAt">
+}, "trackId" | "spotifyTrackId_playedAt">
 
 export type TrackOrderByWithAggregationInput = {
   trackId?: Prisma.SortOrder
@@ -503,8 +503,7 @@ export type TrackOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type TrackUserIdSpotifyTrackIdPlayedAtCompoundUniqueInput = {
-  userId: string
+export type TrackSpotifyTrackIdPlayedAtCompoundUniqueInput = {
   spotifyTrackId: string
   playedAt: Date | string
 }

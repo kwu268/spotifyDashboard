@@ -1,20 +1,21 @@
 datasource db {
   provider = "postgresql"
 }
+
 generator client {
-  provider  = "prisma-client"
-  output    = "../generated/prisma"
+  provider   = "prisma-client"
+  output     = "../generated/prisma"
   engineType = "client"
 }
 
 model User {
-  id         String      @id @default(cuid())
-  name           String?
-  image          String?
-  email          String? @unique
-  emailVerified  DateTime?
-	accounts Account[]
-  sessions Session[]
+  id            String    @id @default(cuid())
+  name          String?
+  image         String?
+  email         String?   @unique
+  emailVerified DateTime?
+  accounts      Account[]
+  sessions      Session[]
 
   // Tracking Data Sync Status
   lastSyncAt          DateTime @default(now())
@@ -28,27 +29,27 @@ model User {
 }
 
 model Track {
-	trackId            Int      @id @default(autoincrement())
-	spotifyTrackId String   // Spotify's unique identifier for the track
-	title             String
-  artist            String
-  albumImageUrl     String?
-  playedAt          DateTime // Crucial: When the track was played
+  trackId        Int      @id @default(autoincrement())
+  spotifyTrackId String // Spotify's unique identifier for the track
+  title          String
+  artist         String
+  albumImageUrl  String?
+  playedAt       DateTime // Crucial: When the track was played
 
   // Spotify Audio Features (for AI and statistical analysis)
-  danceability      Float
-  energy            Float
-  valence           Float
-  tempo             Float
-  instrumentalness  Float
-	acousticness      Float
+  danceability     Float
+  energy           Float
+  valence          Float
+  tempo            Float
+  instrumentalness Float
+  acousticness     Float
 
   // Relationship back to the User who played it
-  user              User   @relation(fields: [userId], references: [id])
-  userId            String @unique
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
   // Ensures we only store one record for a track played at a specific time by a user
-  @@unique([userId, spotifyTrackId, playedAt])
+  @@unique([spotifyTrackId, playedAt])
 }
 
 model Account {
@@ -64,18 +65,18 @@ model Account {
   id_token          String? @db.Text
   session_state     String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId            String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 
   @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id           String    @id @default(cuid())
-  sessionToken String    @unique
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
   expires      DateTime
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       String @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
 }
 
 model VerificationToken {
