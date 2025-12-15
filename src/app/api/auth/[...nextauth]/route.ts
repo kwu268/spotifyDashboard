@@ -9,6 +9,7 @@ const scopes = [
   "user-read-private",
   "user-read-recently-played",
   "user-top-read",
+  "user-library-read"
 ].join(",");
 
 export const authOptions: NextAuthOptions = {
@@ -71,9 +72,6 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }: { session: Session; token: JWT }) {
       console.log("--- session CALLBACK ---");
       session.user.id = token.id as string;
-      // session.accessToken = token.accessToken as string;
-      // session.refreshToken = token.refreshToken as string;
-      console.log("Session Object:", session);
       return session;
     },
   },

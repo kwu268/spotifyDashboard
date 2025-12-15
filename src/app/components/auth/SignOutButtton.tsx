@@ -5,9 +5,9 @@ import { signOut } from "next-auth/react";
 
 export function SignOutButton() {
 
-    const handleSignOut = () => {
+    const handleSignOut = async () => {
         // Sign out and redirect the user back to the homepage
-        signOut({ callbackUrl: '/' });
+        await signOut({ redirect: true, callbackUrl: '/' });
     };
 
     return (

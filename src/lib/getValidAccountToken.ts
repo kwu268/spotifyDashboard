@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
 import { DateTime } from "luxon";
 
-
 const url = process.env.SPOTIFY_REFRESH_URL!;
 const basicAuth = Buffer.from(
   `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
@@ -24,11 +23,16 @@ export const getValidAccessToken = async (userId: string) => {
 
     const expiredTime = DateTime.fromSeconds(expires_at as number);
     const isExpired = expiredTime <= DateTime.now().plus({ seconds: 5 });
+    console.log("Current time:", DateTime.now().toSeconds());
+    console.log("Expires at:", expiredTime.toSeconds());
+    console.log("Is expired:", isExpired);
 
     // 3. if access token has not expired, return it
     if (!isExpired) {
+      console.log("!@#!@#");
       return access_token;
     }
+    console.log("@@@ preparing to refresh");
 
     // 4. If access token has expired, use refresh token to get a new access token from Spotify
     const payload = {
@@ -41,7 +45,7 @@ export const getValidAccessToken = async (userId: string) => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
 
-				Authorization: `Basic ${basicAuth}`,
+        Authorization: `Basic ${basicAuth}`,
       },
     });
     if (!refreshResponse.ok) {

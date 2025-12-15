@@ -7,13 +7,14 @@ import {
   getUserAlbums,
   getUserTop,
   getUserRecentlyPlayed,
-} from "../../spotifyApi";
+} from "../spotifyApi";
 
-export async function SpotifyApiRequest(
+export async function GET(
   request: Request,
-  { params }: { params: { endpoint: string[] } }
+  { params }: { params: Promise<{ endpoint: string[] }> }
 ) {
-  const [currentApi] = params.endpoint;
+  const { endpoint } = await params;
+  const [currentApi] = endpoint;
 
   const url = new URL(request.url);
   const range = url.searchParams.get("range");
@@ -22,7 +23,7 @@ export async function SpotifyApiRequest(
   const accessToken = await getValidAccessToken(session?.user.id);
 
   if (!session?.user.id) {
-    Response.json({ error: "Session unavailable" });
+    return Response.json({ error: "Session unavailable" }, { status: 401 });
   }
 
   try {
@@ -37,15 +38,19 @@ export async function SpotifyApiRequest(
         return Response.json(await getUserAlbums(accessToken));
 
 			case "recentlyPlayed":
-        return Response.json(await getUserAlbums(accessToken));
+        return Response.json(await getUserRecentlyPlayed(accessToken));
 
       case "topArtists":
-        return Response.json(await getUserRecentlyPlayed(accessToken));
+        return Response.json(await getUserTop(accessToken, "artists", range!));
 
       case "topTracks":
         return Response.json(await getUserTop(accessToken, "tracks", range!));
+
+      default:
+        return Response.json({ error: "Unknown endpoint" }, { status: 400 });
     }
   } catch (error) {
-		console.log("Something went wrong during the spotifyAPI Route: ", error)
+		console.log("Something went wrong during the spotifyAPI Route: ", error);
+		return Response.json({ error: "Failed to fetch from Spotify Endpoint " }, { status: 500 });
 	}
 }
