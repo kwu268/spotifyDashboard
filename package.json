@@ -12,6 +12,7 @@
     "@apollo/client": "^4.0.9",
     "@apollo/server": "^5.2.0",
     "@next-auth/prisma-adapter": "^1.0.7",
+    "@phosphor-icons/react": "^2.1.10",
     "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",
     "@reduxjs/toolkit": "^2.11.0",
