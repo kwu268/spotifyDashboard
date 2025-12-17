@@ -1,20 +1,23 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
-import { SignOutButton } from "@/components/auth/SignOutButtton"; // Alias or relative path
+import { useSession } from "next-auth/react";
 import { Session } from "next-auth"; // Import the session type if needed
 import { useEffect, useState, useRef } from "react";
 import { spotifyUser } from "@/types/spotify";
-import { Sidebar } from "@/components/shared/Sidebar";
-import { LoadingView } from '@/components/LoadingView';
+import { Sidebar, TimeFilter } from "../../components/shared";
+import { LoadingView } from "@/components/LoadingView";
 
-// We define a simple type for the session prop
 interface DashboardViewProps {
-  session: Session;
+  children: React.ReactNode
 }
 
-export function DashboardView({ session }: DashboardViewProps) {
+export default function DashboardLayout({children}: DashboardViewProps) {
   const [user, setUser] = useState<spotifyUser | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [selectedTime, setSelectedTime] = useState<string>("2025");
+
+  const { data: session } = useSession();
+
   const isProfileFetchedRef = useRef(false);
 
   useEffect(() => {
@@ -45,7 +48,7 @@ export function DashboardView({ session }: DashboardViewProps) {
         "
     >
       {isLoading ? (
-        <LoadingView isLoading={isLoading}/>
+        <LoadingView isLoading={isLoading} />
       ) : (
         <div
           className="
@@ -57,22 +60,16 @@ export function DashboardView({ session }: DashboardViewProps) {
           animate-fadeIn
           "
         >
-          {" "}
-          {/* no Name wrapper to satisfy ternary single parent */}
           {/* Left Nav Bar */}
           <Sidebar user={user} />
           {/* Right Side Parent Div */}
           <div className=" w-full flex flex-col gap-5  rounded-2xl">
             {/* Top Timeline Filter Bar */}
-            <div className=" h-14 rounded-2xl flex bg-black/70">
-              <div className="ml-auto border-2 border-green-950 ">
-                Time Filter{" "}
-              </div>
-            </div>
+            <TimeFilter selectedTime={selectedTime} setSelectedTime={setSelectedTime}/>
 
             {/* Main Content */}
-            <div className="border-2 border-b-blue-900 h-full rounded-2xl bg-gradient-transparent p-3">
-              Main Content
+            <div className=" h-full rounded-2xl bg-gradient-transparent p-3 animate-fadeIn">
+              {children}
             </div>
           </div>
         </div>

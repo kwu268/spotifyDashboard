@@ -1,6 +1,12 @@
-'use client';
+"use client";
 
-import { PuzzlePieceIcon, CoffeeIcon, ChartBarIcon, SignOutIcon } from "@phosphor-icons/react";
+import {
+  PuzzlePieceIcon,
+  CoffeeIcon,
+  ChartBarIcon,
+  SignOutIcon,
+  IconWeight,
+} from "@phosphor-icons/react";
 import { spotifyUser } from "@/types/spotify";
 import { SignOutButton } from "@/components/auth/SignOutButtton";
 import { SidebarButton } from "./SidebarButton";
@@ -10,9 +16,37 @@ interface SidebarProps {
   user: spotifyUser | undefined;
 }
 
-export function Sidebar({ user }: SidebarProps) {
-    const [isHovered, setIsHovered] = useState(false);
+interface SidebarValues {
+  icon: React.ComponentType<{
+    color: string;
+    weight: IconWeight;
+    size: number;
+    className: string;
+  }>;
+  label: string;
+  endpoint: string
+}
 
+export function Sidebar({ user }: SidebarProps) {
+  const [tabHovered, setTabHovered] = useState<string | undefined>(undefined);
+
+  const sidebarButtonFilters: SidebarValues[] = [
+    {
+      icon: PuzzlePieceIcon,
+      label: "Overview",
+      endpoint: '/overview'
+    },
+    {
+      icon: CoffeeIcon,
+      label: "Habits",
+      endpoint: '/habits'
+    },
+    {
+      icon: ChartBarIcon,
+      label: "Statistics",
+      endpoint: 'statistics'
+    },
+  ];
 
   return (
     <div className=" w-1/8 rounded-2xl bg-gradient-transparent flex flex-col gap-4 ">
@@ -38,9 +72,18 @@ export function Sidebar({ user }: SidebarProps) {
 
       <div className=" h-full flex flex-col">
         <div className="h-1/2  flex flex-col gap-5">
-          <SidebarButton icon={PuzzlePieceIcon} label={"Overview"} />
-          <SidebarButton icon={CoffeeIcon} label={"Overview"} />
-          <SidebarButton icon={ChartBarIcon} label={"Analysis"} />
+          {sidebarButtonFilters.map((button) => {
+            return (
+              <SidebarButton
+                key={button.label}
+                icon={button.icon}
+                label={button.label}
+                endpoint={button.endpoint}
+                tabHovered={tabHovered!}
+                setTabHovered={setTabHovered}
+              />
+            );
+          })}
         </div>
 
         <div className="flex justify-center mt-auto flex-col items-center ">

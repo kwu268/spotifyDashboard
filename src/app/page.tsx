@@ -1,7 +1,7 @@
 'use client';
 import { SignInButton } from '@/components/auth/SignInButton';
 import { useSession } from 'next-auth/react';
-import { DashboardView } from '@/components/DashboardView';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -11,7 +11,7 @@ export default function Home() {
   }
 
   if (session) {
-    return <DashboardView session={session} />;
+    redirect('/overview');
   }
 
   return (
