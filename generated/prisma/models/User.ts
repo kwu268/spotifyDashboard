@@ -251,6 +251,8 @@ export type UserWhereInput = {
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   historicalTracks?: Prisma.TrackListRelationFilter
+  topTracks?: Prisma.TopTrackListRelationFilter
+  topArtists?: Prisma.TopArtistListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -266,6 +268,8 @@ export type UserOrderByWithRelationInput = {
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   historicalTracks?: Prisma.TrackOrderByRelationAggregateInput
+  topTracks?: Prisma.TopTrackOrderByRelationAggregateInput
+  topArtists?: Prisma.TopArtistOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -284,6 +288,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   historicalTracks?: Prisma.TrackListRelationFilter
+  topTracks?: Prisma.TopTrackListRelationFilter
+  topArtists?: Prisma.TopArtistListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -331,6 +337,8 @@ export type UserCreateInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   historicalTracks?: Prisma.TrackCreateNestedManyWithoutUserInput
+  topTracks?: Prisma.TopTrackCreateNestedManyWithoutUserInput
+  topArtists?: Prisma.TopArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -346,6 +354,8 @@ export type UserUncheckedCreateInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   historicalTracks?: Prisma.TrackUncheckedCreateNestedManyWithoutUserInput
+  topTracks?: Prisma.TopTrackUncheckedCreateNestedManyWithoutUserInput
+  topArtists?: Prisma.TopArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -361,6 +371,8 @@ export type UserUpdateInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   historicalTracks?: Prisma.TrackUpdateManyWithoutUserNestedInput
+  topTracks?: Prisma.TopTrackUpdateManyWithoutUserNestedInput
+  topArtists?: Prisma.TopArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -376,6 +388,8 @@ export type UserUncheckedUpdateInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   historicalTracks?: Prisma.TrackUncheckedUpdateManyWithoutUserNestedInput
+  topTracks?: Prisma.TopTrackUncheckedUpdateManyWithoutUserNestedInput
+  topArtists?: Prisma.TopArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -529,6 +543,34 @@ export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
 }
 
+export type UserCreateNestedOneWithoutTopTracksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTopTracksInput, Prisma.UserUncheckedCreateWithoutTopTracksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTopTracksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTopTracksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTopTracksInput, Prisma.UserUncheckedCreateWithoutTopTracksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTopTracksInput
+  upsert?: Prisma.UserUpsertWithoutTopTracksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTopTracksInput, Prisma.UserUpdateWithoutTopTracksInput>, Prisma.UserUncheckedUpdateWithoutTopTracksInput>
+}
+
+export type UserCreateNestedOneWithoutTopArtistsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTopArtistsInput, Prisma.UserUncheckedCreateWithoutTopArtistsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTopArtistsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTopArtistsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTopArtistsInput, Prisma.UserUncheckedCreateWithoutTopArtistsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTopArtistsInput
+  upsert?: Prisma.UserUpsertWithoutTopArtistsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTopArtistsInput, Prisma.UserUpdateWithoutTopArtistsInput>, Prisma.UserUncheckedUpdateWithoutTopArtistsInput>
+}
+
 export type UserCreateWithoutHistoricalTracksInput = {
   id?: string
   name?: string | null
@@ -541,6 +583,8 @@ export type UserCreateWithoutHistoricalTracksInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  topTracks?: Prisma.TopTrackCreateNestedManyWithoutUserInput
+  topArtists?: Prisma.TopArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutHistoricalTracksInput = {
@@ -555,6 +599,8 @@ export type UserUncheckedCreateWithoutHistoricalTracksInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  topTracks?: Prisma.TopTrackUncheckedCreateNestedManyWithoutUserInput
+  topArtists?: Prisma.TopArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutHistoricalTracksInput = {
@@ -585,6 +631,8 @@ export type UserUpdateWithoutHistoricalTracksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  topTracks?: Prisma.TopTrackUpdateManyWithoutUserNestedInput
+  topArtists?: Prisma.TopArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutHistoricalTracksInput = {
@@ -599,6 +647,8 @@ export type UserUncheckedUpdateWithoutHistoricalTracksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  topTracks?: Prisma.TopTrackUncheckedUpdateManyWithoutUserNestedInput
+  topArtists?: Prisma.TopArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -613,6 +663,8 @@ export type UserCreateWithoutAccountsInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   historicalTracks?: Prisma.TrackCreateNestedManyWithoutUserInput
+  topTracks?: Prisma.TopTrackCreateNestedManyWithoutUserInput
+  topArtists?: Prisma.TopArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -627,6 +679,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   historicalTracks?: Prisma.TrackUncheckedCreateNestedManyWithoutUserInput
+  topTracks?: Prisma.TopTrackUncheckedCreateNestedManyWithoutUserInput
+  topArtists?: Prisma.TopArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -657,6 +711,8 @@ export type UserUpdateWithoutAccountsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   historicalTracks?: Prisma.TrackUpdateManyWithoutUserNestedInput
+  topTracks?: Prisma.TopTrackUpdateManyWithoutUserNestedInput
+  topArtists?: Prisma.TopArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -671,6 +727,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   historicalTracks?: Prisma.TrackUncheckedUpdateManyWithoutUserNestedInput
+  topTracks?: Prisma.TopTrackUncheckedUpdateManyWithoutUserNestedInput
+  topArtists?: Prisma.TopArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -685,6 +743,8 @@ export type UserCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   historicalTracks?: Prisma.TrackCreateNestedManyWithoutUserInput
+  topTracks?: Prisma.TopTrackCreateNestedManyWithoutUserInput
+  topArtists?: Prisma.TopArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -699,6 +759,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   historicalTracks?: Prisma.TrackUncheckedCreateNestedManyWithoutUserInput
+  topTracks?: Prisma.TopTrackUncheckedCreateNestedManyWithoutUserInput
+  topArtists?: Prisma.TopArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -729,6 +791,8 @@ export type UserUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   historicalTracks?: Prisma.TrackUpdateManyWithoutUserNestedInput
+  topTracks?: Prisma.TopTrackUpdateManyWithoutUserNestedInput
+  topArtists?: Prisma.TopArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -743,6 +807,168 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   historicalTracks?: Prisma.TrackUncheckedUpdateManyWithoutUserNestedInput
+  topTracks?: Prisma.TopTrackUncheckedUpdateManyWithoutUserNestedInput
+  topArtists?: Prisma.TopArtistUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTopTracksInput = {
+  id?: string
+  name?: string | null
+  image?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  lastSyncAt?: Date | string
+  totalTracksAnalyzed?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  historicalTracks?: Prisma.TrackCreateNestedManyWithoutUserInput
+  topArtists?: Prisma.TopArtistCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTopTracksInput = {
+  id?: string
+  name?: string | null
+  image?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  lastSyncAt?: Date | string
+  totalTracksAnalyzed?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  historicalTracks?: Prisma.TrackUncheckedCreateNestedManyWithoutUserInput
+  topArtists?: Prisma.TopArtistUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTopTracksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTopTracksInput, Prisma.UserUncheckedCreateWithoutTopTracksInput>
+}
+
+export type UserUpsertWithoutTopTracksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTopTracksInput, Prisma.UserUncheckedUpdateWithoutTopTracksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTopTracksInput, Prisma.UserUncheckedCreateWithoutTopTracksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTopTracksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTopTracksInput, Prisma.UserUncheckedUpdateWithoutTopTracksInput>
+}
+
+export type UserUpdateWithoutTopTracksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  historicalTracks?: Prisma.TrackUpdateManyWithoutUserNestedInput
+  topArtists?: Prisma.TopArtistUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTopTracksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  historicalTracks?: Prisma.TrackUncheckedUpdateManyWithoutUserNestedInput
+  topArtists?: Prisma.TopArtistUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTopArtistsInput = {
+  id?: string
+  name?: string | null
+  image?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  lastSyncAt?: Date | string
+  totalTracksAnalyzed?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  historicalTracks?: Prisma.TrackCreateNestedManyWithoutUserInput
+  topTracks?: Prisma.TopTrackCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTopArtistsInput = {
+  id?: string
+  name?: string | null
+  image?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  lastSyncAt?: Date | string
+  totalTracksAnalyzed?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  historicalTracks?: Prisma.TrackUncheckedCreateNestedManyWithoutUserInput
+  topTracks?: Prisma.TopTrackUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTopArtistsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTopArtistsInput, Prisma.UserUncheckedCreateWithoutTopArtistsInput>
+}
+
+export type UserUpsertWithoutTopArtistsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTopArtistsInput, Prisma.UserUncheckedUpdateWithoutTopArtistsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTopArtistsInput, Prisma.UserUncheckedCreateWithoutTopArtistsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTopArtistsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTopArtistsInput, Prisma.UserUncheckedUpdateWithoutTopArtistsInput>
+}
+
+export type UserUpdateWithoutTopArtistsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  historicalTracks?: Prisma.TrackUpdateManyWithoutUserNestedInput
+  topTracks?: Prisma.TopTrackUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTopArtistsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastSyncAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  totalTracksAnalyzed?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  historicalTracks?: Prisma.TrackUncheckedUpdateManyWithoutUserNestedInput
+  topTracks?: Prisma.TopTrackUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -754,12 +980,16 @@ export type UserCountOutputType = {
   accounts: number
   sessions: number
   historicalTracks: number
+  topTracks: number
+  topArtists: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   historicalTracks?: boolean | UserCountOutputTypeCountHistoricalTracksArgs
+  topTracks?: boolean | UserCountOutputTypeCountTopTracksArgs
+  topArtists?: boolean | UserCountOutputTypeCountTopArtistsArgs
 }
 
 /**
@@ -793,6 +1023,20 @@ export type UserCountOutputTypeCountHistoricalTracksArgs<ExtArgs extends runtime
   where?: Prisma.TrackWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTopTracksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TopTrackWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTopArtistsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TopArtistWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -807,6 +1051,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   historicalTracks?: boolean | Prisma.User$historicalTracksArgs<ExtArgs>
+  topTracks?: boolean | Prisma.User$topTracksArgs<ExtArgs>
+  topArtists?: boolean | Prisma.User$topArtistsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -851,6 +1097,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   historicalTracks?: boolean | Prisma.User$historicalTracksArgs<ExtArgs>
+  topTracks?: boolean | Prisma.User$topTracksArgs<ExtArgs>
+  topArtists?: boolean | Prisma.User$topArtistsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -862,6 +1110,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     historicalTracks: Prisma.$TrackPayload<ExtArgs>[]
+    topTracks: Prisma.$TopTrackPayload<ExtArgs>[]
+    topArtists: Prisma.$TopArtistPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1270,6 +1520,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   historicalTracks<T extends Prisma.User$historicalTracksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$historicalTracksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  topTracks<T extends Prisma.User$topTracksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$topTracksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TopTrackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  topArtists<T extends Prisma.User$topArtistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$topArtistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TopArtistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1765,6 +2017,54 @@ export type User$historicalTracksArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.TrackScalarFieldEnum | Prisma.TrackScalarFieldEnum[]
+}
+
+/**
+ * User.topTracks
+ */
+export type User$topTracksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TopTrack
+   */
+  select?: Prisma.TopTrackSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TopTrack
+   */
+  omit?: Prisma.TopTrackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TopTrackInclude<ExtArgs> | null
+  where?: Prisma.TopTrackWhereInput
+  orderBy?: Prisma.TopTrackOrderByWithRelationInput | Prisma.TopTrackOrderByWithRelationInput[]
+  cursor?: Prisma.TopTrackWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TopTrackScalarFieldEnum | Prisma.TopTrackScalarFieldEnum[]
+}
+
+/**
+ * User.topArtists
+ */
+export type User$topArtistsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TopArtist
+   */
+  select?: Prisma.TopArtistSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TopArtist
+   */
+  omit?: Prisma.TopArtistOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TopArtistInclude<ExtArgs> | null
+  where?: Prisma.TopArtistWhereInput
+  orderBy?: Prisma.TopArtistOrderByWithRelationInput | Prisma.TopArtistOrderByWithRelationInput[]
+  cursor?: Prisma.TopArtistWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TopArtistScalarFieldEnum | Prisma.TopArtistScalarFieldEnum[]
 }
 
 /**

@@ -119,7 +119,8 @@ export const getUserRecentlyPlayed = async (
 export const getUserTop = async (
   accessToken: string,
   topType: string,
-  range: string | null
+  range: string | null,
+  offset: number
 ): Promise<SpotifyPaginatedResponse<spotifyArtist | spotifyTrack>> => {
   try {
     const finalRange = range ?? "medium_term";
@@ -134,7 +135,7 @@ export const getUserTop = async (
       );
 
     const userResponse = await fetch(
-      `${fullUrl}?time_range=${finalRange}&limit=50`,
+      `${fullUrl}?time_range=${finalRange}&limit=50&offset=${offset}`,
       {
         method: "GET",
         headers: {

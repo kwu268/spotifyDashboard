@@ -14,7 +14,6 @@ interface TimeFilter {
 }
 
 export function TimeFilter({ selectedTime, setSelectedTime }: TimeFilterProps) {
-  console.log(selectedTime);
 
   const timeFilters: TimeFilter[] = [
     {

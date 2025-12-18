@@ -24,7 +24,7 @@ interface SidebarValues {
     className: string;
   }>;
   label: string;
-  endpoint: string
+  endpoint: string;
 }
 
 export function Sidebar({ user }: SidebarProps) {
@@ -34,17 +34,17 @@ export function Sidebar({ user }: SidebarProps) {
     {
       icon: PuzzlePieceIcon,
       label: "Overview",
-      endpoint: '/overview'
+      endpoint: "/overview",
     },
     {
       icon: CoffeeIcon,
       label: "Habits",
-      endpoint: '/habits'
+      endpoint: "/habits",
     },
     {
       icon: ChartBarIcon,
       label: "Statistics",
-      endpoint: 'statistics'
+      endpoint: "statistics",
     },
   ];
 
@@ -58,14 +58,7 @@ export function Sidebar({ user }: SidebarProps) {
           className="rounded-full p-2 bg-white/10  w-3/4"
         />
       </div>
-      <p
-        className="
-        text-white
-          text-center
-          font-bold
-          text-xl
-        "
-      >
+      <p className="text-white text-center font-bold text-xl">
         {user?.display_name}
       </p>
       <div className="border border-white w-5/6 mx-auto"></div>

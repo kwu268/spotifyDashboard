@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { getValidAccessToken } from "@/lib/getValidAccountToken";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { NextResponse } from "next/server";
 import {
   getUserProfile,
   getUserPlaylists,
@@ -20,37 +21,49 @@ export async function GET(
   const range = url.searchParams.get("range");
 
   const session = await getServerSession(authOptions);
-  const accessToken = await getValidAccessToken(session?.user.id);
-
   if (!session?.user.id) {
-    return Response.json({ error: "Session unavailable" }, { status: 401 });
+    return NextResponse.json({ error: "Session unavailable" }, { status: 401 });
   }
+  const accessToken = await getValidAccessToken(session?.user.id);
 
   try {
     switch (currentApi) {
       case "userProfile":
-        return Response.json(await getUserProfile(accessToken));
+        return NextResponse.json(await getUserProfile(accessToken));
 
       case "userPlaylist":
-        return Response.json(await getUserPlaylists(accessToken));
+        return NextResponse.json(await getUserPlaylists(accessToken));
 
       case "userAlbum":
-        return Response.json(await getUserAlbums(accessToken));
+        return NextResponse.json(await getUserAlbums(accessToken));
 
-			case "recentlyPlayed":
-        return Response.json(await getUserRecentlyPlayed(accessToken));
+      case "recentlyPlayed":
+        return NextResponse.json(await getUserRecentlyPlayed(accessToken));
 
       case "topArtists":
-        return Response.json(await getUserTop(accessToken, "artists", range!));
+        return NextResponse.json(
+          await getUserTop(accessToken, "artists", range!, 50)
+        );
 
       case "topTracks":
-        return Response.json(await getUserTop(accessToken, "tracks", range!));
+        return NextResponse.json(
+          await getUserTop(accessToken, "tracks", range!, 50)
+        );
 
       default:
-        return Response.json({ error: "Unknown endpoint" }, { status: 400 });
+        return NextResponse.json(
+          { error: "Unknown endpoint" },
+          { status: 400 }
+        );
     }
   } catch (error) {
-		console.log("Something went wrong during the spotifyAPI Route: ", error);
-		return Response.json({ error: "Failed to fetch from Spotify Endpoint " }, { status: 500 });
-	}
+    console.error("Something went wrong during the spotifyAPI Route: ", error);
+    return NextResponse.json(
+      {
+        error: "Failed to fetch from Spotify Endpoint",
+        details: String(error),
+      },
+      { status: 500 }
+    );
+  }
 }

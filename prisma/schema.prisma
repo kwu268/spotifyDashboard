@@ -21,8 +21,10 @@ model User {
   lastSyncAt          DateTime @default(now())
   totalTracksAnalyzed Int      @default(0)
 
-  // Relationship to tracks
+  // Relationship to historical data
   historicalTracks Track[]
+  topTracks        TopTrack[]
+  topArtists       TopArtist[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -36,13 +38,6 @@ model Track {
   albumImageUrl  String?
   playedAt       DateTime // Crucial: When the track was played
 
-  // Spotify Audio Features (for AI and statistical analysis)
-  danceability     Float
-  energy           Float
-  valence          Float
-  tempo            Float
-  instrumentalness Float
-  acousticness     Float
 
   // Relationship back to the User who played it
   user   User   @relation(fields: [userId], references: [id])
@@ -85,4 +80,38 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model TopTrack {
+  id             String   @id @default(cuid())
+  spotifyTrackId String
+  title          String
+  artist         String
+  albumImageUrl  String?
+  rank           Int      // Ranking position (1st, 2nd, etc.)
+  popularity     Int?     // Spotify popularity score 0-100
+
+  // Relationship to user
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  // Ensure one record per user per track
+  @@unique([userId, spotifyTrackId])
+}
+
+model TopArtist {
+  id             String   @id @default(cuid())
+  spotifyArtistId String
+  name           String
+  genres         String[] // Array of genre strings
+  popularity     Int?     // Spotify popularity score 0-100
+  imageUrl       String?  // Artist image URL
+  rank           Int      // Ranking position (1st, 2nd, etc.)
+
+  // Relationship to user
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  // Ensure one record per user per artist
+  @@unique([userId, spotifyArtistId])
 }

@@ -64,3 +64,13 @@ export type Session = Prisma.SessionModel
  * 
  */
 export type VerificationToken = Prisma.VerificationTokenModel
+/**
+ * Model TopTrack
+ * 
+ */
+export type TopTrack = Prisma.TopTrackModel
+/**
+ * Model TopArtist
+ * 
+ */
+export type TopArtist = Prisma.TopArtistModel

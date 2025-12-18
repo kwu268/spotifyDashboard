@@ -28,22 +28,10 @@ export type AggregateTrack = {
 
 export type TrackAvgAggregateOutputType = {
   trackId: number | null
-  danceability: number | null
-  energy: number | null
-  valence: number | null
-  tempo: number | null
-  instrumentalness: number | null
-  acousticness: number | null
 }
 
 export type TrackSumAggregateOutputType = {
   trackId: number | null
-  danceability: number | null
-  energy: number | null
-  valence: number | null
-  tempo: number | null
-  instrumentalness: number | null
-  acousticness: number | null
 }
 
 export type TrackMinAggregateOutputType = {
@@ -53,12 +41,6 @@ export type TrackMinAggregateOutputType = {
   artist: string | null
   albumImageUrl: string | null
   playedAt: Date | null
-  danceability: number | null
-  energy: number | null
-  valence: number | null
-  tempo: number | null
-  instrumentalness: number | null
-  acousticness: number | null
   userId: string | null
 }
 
@@ -69,12 +51,6 @@ export type TrackMaxAggregateOutputType = {
   artist: string | null
   albumImageUrl: string | null
   playedAt: Date | null
-  danceability: number | null
-  energy: number | null
-  valence: number | null
-  tempo: number | null
-  instrumentalness: number | null
-  acousticness: number | null
   userId: string | null
 }
 
@@ -85,12 +61,6 @@ export type TrackCountAggregateOutputType = {
   artist: number
   albumImageUrl: number
   playedAt: number
-  danceability: number
-  energy: number
-  valence: number
-  tempo: number
-  instrumentalness: number
-  acousticness: number
   userId: number
   _all: number
 }
@@ -98,22 +68,10 @@ export type TrackCountAggregateOutputType = {
 
 export type TrackAvgAggregateInputType = {
   trackId?: true
-  danceability?: true
-  energy?: true
-  valence?: true
-  tempo?: true
-  instrumentalness?: true
-  acousticness?: true
 }
 
 export type TrackSumAggregateInputType = {
   trackId?: true
-  danceability?: true
-  energy?: true
-  valence?: true
-  tempo?: true
-  instrumentalness?: true
-  acousticness?: true
 }
 
 export type TrackMinAggregateInputType = {
@@ -123,12 +81,6 @@ export type TrackMinAggregateInputType = {
   artist?: true
   albumImageUrl?: true
   playedAt?: true
-  danceability?: true
-  energy?: true
-  valence?: true
-  tempo?: true
-  instrumentalness?: true
-  acousticness?: true
   userId?: true
 }
 
@@ -139,12 +91,6 @@ export type TrackMaxAggregateInputType = {
   artist?: true
   albumImageUrl?: true
   playedAt?: true
-  danceability?: true
-  energy?: true
-  valence?: true
-  tempo?: true
-  instrumentalness?: true
-  acousticness?: true
   userId?: true
 }
 
@@ -155,12 +101,6 @@ export type TrackCountAggregateInputType = {
   artist?: true
   albumImageUrl?: true
   playedAt?: true
-  danceability?: true
-  energy?: true
-  valence?: true
-  tempo?: true
-  instrumentalness?: true
-  acousticness?: true
   userId?: true
   _all?: true
 }
@@ -258,12 +198,6 @@ export type TrackGroupByOutputType = {
   artist: string
   albumImageUrl: string | null
   playedAt: Date
-  danceability: number
-  energy: number
-  valence: number
-  tempo: number
-  instrumentalness: number
-  acousticness: number
   userId: string
   _count: TrackCountAggregateOutputType | null
   _avg: TrackAvgAggregateOutputType | null
@@ -297,12 +231,6 @@ export type TrackWhereInput = {
   artist?: Prisma.StringFilter<"Track"> | string
   albumImageUrl?: Prisma.StringNullableFilter<"Track"> | string | null
   playedAt?: Prisma.DateTimeFilter<"Track"> | Date | string
-  danceability?: Prisma.FloatFilter<"Track"> | number
-  energy?: Prisma.FloatFilter<"Track"> | number
-  valence?: Prisma.FloatFilter<"Track"> | number
-  tempo?: Prisma.FloatFilter<"Track"> | number
-  instrumentalness?: Prisma.FloatFilter<"Track"> | number
-  acousticness?: Prisma.FloatFilter<"Track"> | number
   userId?: Prisma.StringFilter<"Track"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -314,12 +242,6 @@ export type TrackOrderByWithRelationInput = {
   artist?: Prisma.SortOrder
   albumImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   playedAt?: Prisma.SortOrder
-  danceability?: Prisma.SortOrder
-  energy?: Prisma.SortOrder
-  valence?: Prisma.SortOrder
-  tempo?: Prisma.SortOrder
-  instrumentalness?: Prisma.SortOrder
-  acousticness?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -335,12 +257,6 @@ export type TrackWhereUniqueInput = Prisma.AtLeast<{
   artist?: Prisma.StringFilter<"Track"> | string
   albumImageUrl?: Prisma.StringNullableFilter<"Track"> | string | null
   playedAt?: Prisma.DateTimeFilter<"Track"> | Date | string
-  danceability?: Prisma.FloatFilter<"Track"> | number
-  energy?: Prisma.FloatFilter<"Track"> | number
-  valence?: Prisma.FloatFilter<"Track"> | number
-  tempo?: Prisma.FloatFilter<"Track"> | number
-  instrumentalness?: Prisma.FloatFilter<"Track"> | number
-  acousticness?: Prisma.FloatFilter<"Track"> | number
   userId?: Prisma.StringFilter<"Track"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "trackId" | "spotifyTrackId_playedAt">
@@ -352,12 +268,6 @@ export type TrackOrderByWithAggregationInput = {
   artist?: Prisma.SortOrder
   albumImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   playedAt?: Prisma.SortOrder
-  danceability?: Prisma.SortOrder
-  energy?: Prisma.SortOrder
-  valence?: Prisma.SortOrder
-  tempo?: Prisma.SortOrder
-  instrumentalness?: Prisma.SortOrder
-  acousticness?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   _count?: Prisma.TrackCountOrderByAggregateInput
   _avg?: Prisma.TrackAvgOrderByAggregateInput
@@ -376,12 +286,6 @@ export type TrackScalarWhereWithAggregatesInput = {
   artist?: Prisma.StringWithAggregatesFilter<"Track"> | string
   albumImageUrl?: Prisma.StringNullableWithAggregatesFilter<"Track"> | string | null
   playedAt?: Prisma.DateTimeWithAggregatesFilter<"Track"> | Date | string
-  danceability?: Prisma.FloatWithAggregatesFilter<"Track"> | number
-  energy?: Prisma.FloatWithAggregatesFilter<"Track"> | number
-  valence?: Prisma.FloatWithAggregatesFilter<"Track"> | number
-  tempo?: Prisma.FloatWithAggregatesFilter<"Track"> | number
-  instrumentalness?: Prisma.FloatWithAggregatesFilter<"Track"> | number
-  acousticness?: Prisma.FloatWithAggregatesFilter<"Track"> | number
   userId?: Prisma.StringWithAggregatesFilter<"Track"> | string
 }
 
@@ -391,12 +295,6 @@ export type TrackCreateInput = {
   artist: string
   albumImageUrl?: string | null
   playedAt: Date | string
-  danceability: number
-  energy: number
-  valence: number
-  tempo: number
-  instrumentalness: number
-  acousticness: number
   user: Prisma.UserCreateNestedOneWithoutHistoricalTracksInput
 }
 
@@ -407,12 +305,6 @@ export type TrackUncheckedCreateInput = {
   artist: string
   albumImageUrl?: string | null
   playedAt: Date | string
-  danceability: number
-  energy: number
-  valence: number
-  tempo: number
-  instrumentalness: number
-  acousticness: number
   userId: string
 }
 
@@ -422,12 +314,6 @@ export type TrackUpdateInput = {
   artist?: Prisma.StringFieldUpdateOperationsInput | string
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  danceability?: Prisma.FloatFieldUpdateOperationsInput | number
-  energy?: Prisma.FloatFieldUpdateOperationsInput | number
-  valence?: Prisma.FloatFieldUpdateOperationsInput | number
-  tempo?: Prisma.FloatFieldUpdateOperationsInput | number
-  instrumentalness?: Prisma.FloatFieldUpdateOperationsInput | number
-  acousticness?: Prisma.FloatFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutHistoricalTracksNestedInput
 }
 
@@ -438,12 +324,6 @@ export type TrackUncheckedUpdateInput = {
   artist?: Prisma.StringFieldUpdateOperationsInput | string
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  danceability?: Prisma.FloatFieldUpdateOperationsInput | number
-  energy?: Prisma.FloatFieldUpdateOperationsInput | number
-  valence?: Prisma.FloatFieldUpdateOperationsInput | number
-  tempo?: Prisma.FloatFieldUpdateOperationsInput | number
-  instrumentalness?: Prisma.FloatFieldUpdateOperationsInput | number
-  acousticness?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -454,12 +334,6 @@ export type TrackCreateManyInput = {
   artist: string
   albumImageUrl?: string | null
   playedAt: Date | string
-  danceability: number
-  energy: number
-  valence: number
-  tempo: number
-  instrumentalness: number
-  acousticness: number
   userId: string
 }
 
@@ -469,12 +343,6 @@ export type TrackUpdateManyMutationInput = {
   artist?: Prisma.StringFieldUpdateOperationsInput | string
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  danceability?: Prisma.FloatFieldUpdateOperationsInput | number
-  energy?: Prisma.FloatFieldUpdateOperationsInput | number
-  valence?: Prisma.FloatFieldUpdateOperationsInput | number
-  tempo?: Prisma.FloatFieldUpdateOperationsInput | number
-  instrumentalness?: Prisma.FloatFieldUpdateOperationsInput | number
-  acousticness?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type TrackUncheckedUpdateManyInput = {
@@ -484,12 +352,6 @@ export type TrackUncheckedUpdateManyInput = {
   artist?: Prisma.StringFieldUpdateOperationsInput | string
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  danceability?: Prisma.FloatFieldUpdateOperationsInput | number
-  energy?: Prisma.FloatFieldUpdateOperationsInput | number
-  valence?: Prisma.FloatFieldUpdateOperationsInput | number
-  tempo?: Prisma.FloatFieldUpdateOperationsInput | number
-  instrumentalness?: Prisma.FloatFieldUpdateOperationsInput | number
-  acousticness?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -515,23 +377,11 @@ export type TrackCountOrderByAggregateInput = {
   artist?: Prisma.SortOrder
   albumImageUrl?: Prisma.SortOrder
   playedAt?: Prisma.SortOrder
-  danceability?: Prisma.SortOrder
-  energy?: Prisma.SortOrder
-  valence?: Prisma.SortOrder
-  tempo?: Prisma.SortOrder
-  instrumentalness?: Prisma.SortOrder
-  acousticness?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
 export type TrackAvgOrderByAggregateInput = {
   trackId?: Prisma.SortOrder
-  danceability?: Prisma.SortOrder
-  energy?: Prisma.SortOrder
-  valence?: Prisma.SortOrder
-  tempo?: Prisma.SortOrder
-  instrumentalness?: Prisma.SortOrder
-  acousticness?: Prisma.SortOrder
 }
 
 export type TrackMaxOrderByAggregateInput = {
@@ -541,12 +391,6 @@ export type TrackMaxOrderByAggregateInput = {
   artist?: Prisma.SortOrder
   albumImageUrl?: Prisma.SortOrder
   playedAt?: Prisma.SortOrder
-  danceability?: Prisma.SortOrder
-  energy?: Prisma.SortOrder
-  valence?: Prisma.SortOrder
-  tempo?: Prisma.SortOrder
-  instrumentalness?: Prisma.SortOrder
-  acousticness?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -557,23 +401,11 @@ export type TrackMinOrderByAggregateInput = {
   artist?: Prisma.SortOrder
   albumImageUrl?: Prisma.SortOrder
   playedAt?: Prisma.SortOrder
-  danceability?: Prisma.SortOrder
-  energy?: Prisma.SortOrder
-  valence?: Prisma.SortOrder
-  tempo?: Prisma.SortOrder
-  instrumentalness?: Prisma.SortOrder
-  acousticness?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
 export type TrackSumOrderByAggregateInput = {
   trackId?: Prisma.SortOrder
-  danceability?: Prisma.SortOrder
-  energy?: Prisma.SortOrder
-  valence?: Prisma.SortOrder
-  tempo?: Prisma.SortOrder
-  instrumentalness?: Prisma.SortOrder
-  acousticness?: Prisma.SortOrder
 }
 
 export type TrackCreateNestedManyWithoutUserInput = {
@@ -618,26 +450,12 @@ export type TrackUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.TrackScalarWhereInput | Prisma.TrackScalarWhereInput[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type TrackCreateWithoutUserInput = {
   spotifyTrackId: string
   title: string
   artist: string
   albumImageUrl?: string | null
   playedAt: Date | string
-  danceability: number
-  energy: number
-  valence: number
-  tempo: number
-  instrumentalness: number
-  acousticness: number
 }
 
 export type TrackUncheckedCreateWithoutUserInput = {
@@ -647,12 +465,6 @@ export type TrackUncheckedCreateWithoutUserInput = {
   artist: string
   albumImageUrl?: string | null
   playedAt: Date | string
-  danceability: number
-  energy: number
-  valence: number
-  tempo: number
-  instrumentalness: number
-  acousticness: number
 }
 
 export type TrackCreateOrConnectWithoutUserInput = {
@@ -691,12 +503,6 @@ export type TrackScalarWhereInput = {
   artist?: Prisma.StringFilter<"Track"> | string
   albumImageUrl?: Prisma.StringNullableFilter<"Track"> | string | null
   playedAt?: Prisma.DateTimeFilter<"Track"> | Date | string
-  danceability?: Prisma.FloatFilter<"Track"> | number
-  energy?: Prisma.FloatFilter<"Track"> | number
-  valence?: Prisma.FloatFilter<"Track"> | number
-  tempo?: Prisma.FloatFilter<"Track"> | number
-  instrumentalness?: Prisma.FloatFilter<"Track"> | number
-  acousticness?: Prisma.FloatFilter<"Track"> | number
   userId?: Prisma.StringFilter<"Track"> | string
 }
 
@@ -707,12 +513,6 @@ export type TrackCreateManyUserInput = {
   artist: string
   albumImageUrl?: string | null
   playedAt: Date | string
-  danceability: number
-  energy: number
-  valence: number
-  tempo: number
-  instrumentalness: number
-  acousticness: number
 }
 
 export type TrackUpdateWithoutUserInput = {
@@ -721,12 +521,6 @@ export type TrackUpdateWithoutUserInput = {
   artist?: Prisma.StringFieldUpdateOperationsInput | string
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  danceability?: Prisma.FloatFieldUpdateOperationsInput | number
-  energy?: Prisma.FloatFieldUpdateOperationsInput | number
-  valence?: Prisma.FloatFieldUpdateOperationsInput | number
-  tempo?: Prisma.FloatFieldUpdateOperationsInput | number
-  instrumentalness?: Prisma.FloatFieldUpdateOperationsInput | number
-  acousticness?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type TrackUncheckedUpdateWithoutUserInput = {
@@ -736,12 +530,6 @@ export type TrackUncheckedUpdateWithoutUserInput = {
   artist?: Prisma.StringFieldUpdateOperationsInput | string
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  danceability?: Prisma.FloatFieldUpdateOperationsInput | number
-  energy?: Prisma.FloatFieldUpdateOperationsInput | number
-  valence?: Prisma.FloatFieldUpdateOperationsInput | number
-  tempo?: Prisma.FloatFieldUpdateOperationsInput | number
-  instrumentalness?: Prisma.FloatFieldUpdateOperationsInput | number
-  acousticness?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type TrackUncheckedUpdateManyWithoutUserInput = {
@@ -751,12 +539,6 @@ export type TrackUncheckedUpdateManyWithoutUserInput = {
   artist?: Prisma.StringFieldUpdateOperationsInput | string
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  danceability?: Prisma.FloatFieldUpdateOperationsInput | number
-  energy?: Prisma.FloatFieldUpdateOperationsInput | number
-  valence?: Prisma.FloatFieldUpdateOperationsInput | number
-  tempo?: Prisma.FloatFieldUpdateOperationsInput | number
-  instrumentalness?: Prisma.FloatFieldUpdateOperationsInput | number
-  acousticness?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 
@@ -768,12 +550,6 @@ export type TrackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   artist?: boolean
   albumImageUrl?: boolean
   playedAt?: boolean
-  danceability?: boolean
-  energy?: boolean
-  valence?: boolean
-  tempo?: boolean
-  instrumentalness?: boolean
-  acousticness?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["track"]>
@@ -785,12 +561,6 @@ export type TrackSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   artist?: boolean
   albumImageUrl?: boolean
   playedAt?: boolean
-  danceability?: boolean
-  energy?: boolean
-  valence?: boolean
-  tempo?: boolean
-  instrumentalness?: boolean
-  acousticness?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["track"]>
@@ -802,12 +572,6 @@ export type TrackSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   artist?: boolean
   albumImageUrl?: boolean
   playedAt?: boolean
-  danceability?: boolean
-  energy?: boolean
-  valence?: boolean
-  tempo?: boolean
-  instrumentalness?: boolean
-  acousticness?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["track"]>
@@ -819,16 +583,10 @@ export type TrackSelectScalar = {
   artist?: boolean
   albumImageUrl?: boolean
   playedAt?: boolean
-  danceability?: boolean
-  energy?: boolean
-  valence?: boolean
-  tempo?: boolean
-  instrumentalness?: boolean
-  acousticness?: boolean
   userId?: boolean
 }
 
-export type TrackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"trackId" | "spotifyTrackId" | "title" | "artist" | "albumImageUrl" | "playedAt" | "danceability" | "energy" | "valence" | "tempo" | "instrumentalness" | "acousticness" | "userId", ExtArgs["result"]["track"]>
+export type TrackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"trackId" | "spotifyTrackId" | "title" | "artist" | "albumImageUrl" | "playedAt" | "userId", ExtArgs["result"]["track"]>
 export type TrackInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -851,12 +609,6 @@ export type $TrackPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     artist: string
     albumImageUrl: string | null
     playedAt: Date
-    danceability: number
-    energy: number
-    valence: number
-    tempo: number
-    instrumentalness: number
-    acousticness: number
     userId: string
   }, ExtArgs["result"]["track"]>
   composites: {}
@@ -1288,12 +1040,6 @@ export interface TrackFieldRefs {
   readonly artist: Prisma.FieldRef<"Track", 'String'>
   readonly albumImageUrl: Prisma.FieldRef<"Track", 'String'>
   readonly playedAt: Prisma.FieldRef<"Track", 'DateTime'>
-  readonly danceability: Prisma.FieldRef<"Track", 'Float'>
-  readonly energy: Prisma.FieldRef<"Track", 'Float'>
-  readonly valence: Prisma.FieldRef<"Track", 'Float'>
-  readonly tempo: Prisma.FieldRef<"Track", 'Float'>
-  readonly instrumentalness: Prisma.FieldRef<"Track", 'Float'>
-  readonly acousticness: Prisma.FieldRef<"Track", 'Float'>
   readonly userId: Prisma.FieldRef<"Track", 'String'>
 }
     

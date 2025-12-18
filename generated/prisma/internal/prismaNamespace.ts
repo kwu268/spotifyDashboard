@@ -388,7 +388,9 @@ export const ModelName = {
   Track: 'Track',
   Account: 'Account',
   Session: 'Session',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  TopTrack: 'TopTrack',
+  TopArtist: 'TopArtist'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -404,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "track" | "account" | "session" | "verificationToken"
+    modelProps: "user" | "track" | "account" | "session" | "verificationToken" | "topTrack" | "topArtist"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -778,6 +780,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TopTrack: {
+      payload: Prisma.$TopTrackPayload<ExtArgs>
+      fields: Prisma.TopTrackFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TopTrackFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TopTrackFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload>
+        }
+        findFirst: {
+          args: Prisma.TopTrackFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TopTrackFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload>
+        }
+        findMany: {
+          args: Prisma.TopTrackFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload>[]
+        }
+        create: {
+          args: Prisma.TopTrackCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload>
+        }
+        createMany: {
+          args: Prisma.TopTrackCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TopTrackCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload>[]
+        }
+        delete: {
+          args: Prisma.TopTrackDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload>
+        }
+        update: {
+          args: Prisma.TopTrackUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload>
+        }
+        deleteMany: {
+          args: Prisma.TopTrackDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TopTrackUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TopTrackUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload>[]
+        }
+        upsert: {
+          args: Prisma.TopTrackUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopTrackPayload>
+        }
+        aggregate: {
+          args: Prisma.TopTrackAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTopTrack>
+        }
+        groupBy: {
+          args: Prisma.TopTrackGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TopTrackGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TopTrackCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TopTrackCountAggregateOutputType> | number
+        }
+      }
+    }
+    TopArtist: {
+      payload: Prisma.$TopArtistPayload<ExtArgs>
+      fields: Prisma.TopArtistFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TopArtistFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TopArtistFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload>
+        }
+        findFirst: {
+          args: Prisma.TopArtistFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TopArtistFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload>
+        }
+        findMany: {
+          args: Prisma.TopArtistFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload>[]
+        }
+        create: {
+          args: Prisma.TopArtistCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload>
+        }
+        createMany: {
+          args: Prisma.TopArtistCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TopArtistCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload>[]
+        }
+        delete: {
+          args: Prisma.TopArtistDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload>
+        }
+        update: {
+          args: Prisma.TopArtistUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload>
+        }
+        deleteMany: {
+          args: Prisma.TopArtistDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TopArtistUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TopArtistUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload>[]
+        }
+        upsert: {
+          args: Prisma.TopArtistUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopArtistPayload>
+        }
+        aggregate: {
+          args: Prisma.TopArtistAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTopArtist>
+        }
+        groupBy: {
+          args: Prisma.TopArtistGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TopArtistGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TopArtistCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TopArtistCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -839,12 +989,6 @@ export const TrackScalarFieldEnum = {
   artist: 'artist',
   albumImageUrl: 'albumImageUrl',
   playedAt: 'playedAt',
-  danceability: 'danceability',
-  energy: 'energy',
-  valence: 'valence',
-  tempo: 'tempo',
-  instrumentalness: 'instrumentalness',
-  acousticness: 'acousticness',
   userId: 'userId'
 } as const
 
@@ -886,6 +1030,34 @@ export const VerificationTokenScalarFieldEnum = {
 } as const
 
 export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
+
+
+export const TopTrackScalarFieldEnum = {
+  id: 'id',
+  spotifyTrackId: 'spotifyTrackId',
+  title: 'title',
+  artist: 'artist',
+  albumImageUrl: 'albumImageUrl',
+  rank: 'rank',
+  popularity: 'popularity',
+  userId: 'userId'
+} as const
+
+export type TopTrackScalarFieldEnum = (typeof TopTrackScalarFieldEnum)[keyof typeof TopTrackScalarFieldEnum]
+
+
+export const TopArtistScalarFieldEnum = {
+  id: 'id',
+  spotifyArtistId: 'spotifyArtistId',
+  name: 'name',
+  genres: 'genres',
+  popularity: 'popularity',
+  imageUrl: 'imageUrl',
+  rank: 'rank',
+  userId: 'userId'
+} as const
+
+export type TopArtistScalarFieldEnum = (typeof TopArtistScalarFieldEnum)[keyof typeof TopArtistScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1073,6 +1245,8 @@ export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   session?: Prisma.SessionOmit
   verificationToken?: Prisma.VerificationTokenOmit
+  topTrack?: Prisma.TopTrackOmit
+  topArtist?: Prisma.TopArtistOmit
 }
 
 /* Types for Logging */

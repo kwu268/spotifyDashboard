@@ -55,7 +55,9 @@ export const ModelName = {
   Track: 'Track',
   Account: 'Account',
   Session: 'Session',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  TopTrack: 'TopTrack',
+  TopArtist: 'TopArtist'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -96,12 +98,6 @@ export const TrackScalarFieldEnum = {
   artist: 'artist',
   albumImageUrl: 'albumImageUrl',
   playedAt: 'playedAt',
-  danceability: 'danceability',
-  energy: 'energy',
-  valence: 'valence',
-  tempo: 'tempo',
-  instrumentalness: 'instrumentalness',
-  acousticness: 'acousticness',
   userId: 'userId'
 } as const
 
@@ -143,6 +139,34 @@ export const VerificationTokenScalarFieldEnum = {
 } as const
 
 export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
+
+
+export const TopTrackScalarFieldEnum = {
+  id: 'id',
+  spotifyTrackId: 'spotifyTrackId',
+  title: 'title',
+  artist: 'artist',
+  albumImageUrl: 'albumImageUrl',
+  rank: 'rank',
+  popularity: 'popularity',
+  userId: 'userId'
+} as const
+
+export type TopTrackScalarFieldEnum = (typeof TopTrackScalarFieldEnum)[keyof typeof TopTrackScalarFieldEnum]
+
+
+export const TopArtistScalarFieldEnum = {
+  id: 'id',
+  spotifyArtistId: 'spotifyArtistId',
+  name: 'name',
+  genres: 'genres',
+  popularity: 'popularity',
+  imageUrl: 'imageUrl',
+  rank: 'rank',
+  userId: 'userId'
+} as const
+
+export type TopArtistScalarFieldEnum = (typeof TopArtistScalarFieldEnum)[keyof typeof TopArtistScalarFieldEnum]
 
 
 export const SortOrder = {
