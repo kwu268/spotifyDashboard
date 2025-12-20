@@ -4,8 +4,10 @@ import { useSession } from "next-auth/react";
 import { Session } from "next-auth"; // Import the session type if needed
 import { useEffect, useState, useRef } from "react";
 import { spotifyUser, spotifyArtist, spotifyTrack } from "@/types/spotify";
-import { Sidebar, TimeFilter } from "../../components/shared";
+import { Sidebar, TimeFilter, RefreshButton } from "../../components/shared";
 import { LoadingView } from "@/components/LoadingView";
+import { Toaster } from "sonner";
+
 
 interface DashboardViewProps {
   children: React.ReactNode;
@@ -49,14 +51,12 @@ export default function DashboardLayout({ children }: DashboardViewProps) {
           {/* Right Side Parent Div */}
           <div className=" w-full flex flex-col gap-5  rounded-2xl">
             {/* Top Timeline Filter Bar */}
-            <TimeFilter
-              selectedTime={selectedTime}
-              setSelectedTime={setSelectedTime}
-            />
+            <RefreshButton/>
 
             {/* Main Content */}
             <div className=" h-full rounded-2xl bg-gradient-transparent p-3 animate-fadeIn">
               {children}
+              <Toaster />
             </div>
           </div>
         </div>

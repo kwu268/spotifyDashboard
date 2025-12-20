@@ -7,10 +7,7 @@ import { NextResponse } from "next/server";
 import { spotifyArtist, spotifyTrack } from "@/types/spotify";
 
 export async function POST(request: Request) {
-  console.log('INSIDE POST@@@@')
   try {
-    // TODO: Step 1 - Get user session using getServerSession()
-    // TODO: Check if session exists and has user.email
     const session = await getServerSession(authOptions);
     if (!session || !session.user)
       return NextResponse.json(
@@ -18,8 +15,6 @@ export async function POST(request: Request) {
         { status: 401 }
       );
 
-    // TODO: Step 2 - Get valid access token using getValidAccessToken(user.id)
-    // TODO: Return 401 if no access token
     const accessToken = await getValidAccessToken(session?.user.id);
     if (!accessToken)
       return NextResponse.json(
@@ -27,9 +22,6 @@ export async function POST(request: Request) {
         { status: 404 }
       );
 
-    // TODO: Step 3 - Query database to get user from prisma.user.findUnique()
-    // TODO: Use session.user.email to find user
-    // TODO: Return 404 if user not found
     const currentUser = await prisma.account.findFirst({
       where: {
         userId: session?.user.id,
@@ -43,12 +35,6 @@ export async function POST(request: Request) {
         { status: 404 }
       );
 
-    // TODO: Step 4 - Fetch top tracks with long_term range
-    // TODO: Use getUserTop(accessToken, "tracks", "long_term")
-    // TODO: This returns paginated data (limit=50 by default)
-    // TODO: Note: Need to paginate through ALL results, not just first 50
-    //      Get total count from response.total
-    //      Loop: offset = 0, then 50, then 100, etc. until offset >= total
     const topTrackArray: spotifyTrack[] = [];
     let trackOffset = 0;
     const MAX_RESULTS = 500; // Limit to top 500 for faster sync
@@ -72,9 +58,6 @@ export async function POST(request: Request) {
       trackOffset += 50;
     }
 
-    // TODO: Step 5 - Fetch top artists with long_term range
-    // TODO: Use getUserTop(accessToken, "artists", "long_term")
-    // TODO: Same pagination logic as tracks
     const topArtistsArray: spotifyArtist[] = [];
     let artistOffset = 0;
 
@@ -97,11 +80,6 @@ export async function POST(request: Request) {
       artistOffset += 50;
     }
 
-    // TODO: Step 6 - For each top track, create/update in database
-    // TODO: Loop through topTrackArray with index (for ranking)
-    // TODO: Check if track already exists by spotifyTrackId using prisma.topTrack.findUnique()
-    // TODO: If exists: update with new rank
-    // TODO: If new: create entry with:
     //   - spotifyTrackId, title, artist (first artist name), albumImageUrl, rank (index + 1), popularit
     //topTrackArray
     let syncedTracks = 0;
@@ -143,12 +121,6 @@ export async function POST(request: Request) {
 
       console.log(syncedTracks)
     }
-
-    // TODO: Step 7 - For each top artist, create/update in database
-    // TODO: Loop through topArtistsArray with index (for ranking)
-    // TODO: Check if artist already exists by spotifyArtistId using prisma.topArtist.findUnique()
-    // TODO: If exists: update with new rank, popularity, genres
-    // TODO: If new: create entry with:
     //   - spotifyArtistId, name, genres (array), popularity, imageUrl (first image), rank (index + 1)
     //topArtistsArray
     let syncedArtists = 0;
@@ -191,19 +163,11 @@ export async function POST(request: Request) {
     }
 
 
-
-
-    // TODO: Step 8 - Count total synced tracks and artists
-    // TODO: Track syncedTracksCount and syncedArtistsCount
-
-    // TODO: Step 9 - Return success response with synced counts
-    console.log('here@@@')
-
     return NextResponse.json(
       {
         message: "Top tracks and artists synced successfully",
-        syncedTracks: syncedTracks, // TODO: Replace with syncedTracksCount
-        syncedArtists: syncedArtists, // TODO: Replace with syncedArtistsCount
+        syncedTracks: syncedTracks,
+        syncedArtists: syncedArtists
       },
       { status: 200 }
     );
