@@ -1,23 +1,28 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import { useSession } from "next-auth/react";
-import { Session } from "next-auth"; // Import the session type if needed
 import { useEffect, useState, useRef } from "react";
-import { spotifyUser, spotifyArtist, spotifyTrack } from "@/types/spotify";
+import { TopArtistsContext, TopTracksContext } from "./DashboardContexts";
 import { Sidebar, TimeFilter, RefreshButton } from "../../components/shared";
 import { LoadingView } from "@/components/LoadingView";
 import { Toaster } from "sonner";
-
+import { useFetchDashboard } from "@/hooks/useFetchDashboard";
 
 interface DashboardViewProps {
   children: React.ReactNode;
 }
 
 export default function DashboardLayout({ children }: DashboardViewProps) {
-  const [user, setUser] = useState<spotifyUser | undefined>(undefined);
-  const [topArtists, setTopArtists] = useState<spotifyArtist[]>([])
-  const [topTracks, setTopTracks] = useState<spotifyTrack[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {
+    fetchTopItems,
+    fetchProfile,
+    user,
+    topArtists,
+    topTracks,
+    isLoading,
+    error,
+  } = useFetchDashboard();
+
   const [selectedTime, setSelectedTime] = useState<string>("2025");
   const { data: session } = useSession();
   const isProfileFetchedRef = useRef(false);
@@ -26,17 +31,10 @@ export default function DashboardLayout({ children }: DashboardViewProps) {
     if (!session || isProfileFetchedRef.current) return;
     isProfileFetchedRef.current = true;
 
-    const fetchProfile = async () => {
-      setIsLoading(true);
-      const res = await fetch("/api/spotify/userProfile");
-      const data = await res.json();
-      setUser(data);
-      setIsLoading(false);
-      console.log(data);
-    };
+    fetchProfile();
+    fetchTopItems();
 
-
-    console.log('test')
+    console.log("test");
     fetchProfile();
   }, [session]);
 
@@ -51,11 +49,15 @@ export default function DashboardLayout({ children }: DashboardViewProps) {
           {/* Right Side Parent Div */}
           <div className=" w-full flex flex-col gap-5  rounded-2xl">
             {/* Top Timeline Filter Bar */}
-            <RefreshButton/>
+            <RefreshButton />
 
             {/* Main Content */}
-            <div className=" h-full rounded-2xl bg-gradient-transparent p-3 animate-fadeIn">
-              {children}
+            <div className=" flex-1 rounded-2xl  animate-fadeIn">
+              <TopArtistsContext.Provider value={topArtists}>
+                <TopTracksContext.Provider value={topTracks}>
+                  {children}
+                </TopTracksContext.Provider>
+              </TopArtistsContext.Provider>
               <Toaster />
             </div>
           </div>

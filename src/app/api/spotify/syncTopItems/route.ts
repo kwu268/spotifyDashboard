@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 
     const topTrackArray: spotifyTrack[] = [];
     let trackOffset = 0;
-    const MAX_RESULTS = 500; // Limit to top 500 for faster sync
+    const MAX_RESULTS = 100
 
     const firstTopTrackRes = await getUserTop(
       accessToken,

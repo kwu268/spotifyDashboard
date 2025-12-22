@@ -38,7 +38,6 @@ model Track {
   albumImageUrl  String?
   playedAt       DateTime // Crucial: When the track was played
 
-
   // Relationship back to the User who played it
   user   User   @relation(fields: [userId], references: [id])
   userId String
@@ -83,13 +82,13 @@ model VerificationToken {
 }
 
 model TopTrack {
-  id             String   @id @default(cuid())
+  id             String  @id @default(cuid())
   spotifyTrackId String
   title          String
   artist         String
   albumImageUrl  String?
-  rank           Int      // Ranking position (1st, 2nd, etc.)
-  popularity     Int?     // Spotify popularity score 0-100
+  rank           Int // Ranking position (1st, 2nd, etc.)
+  popularity     Int? // Spotify popularity score 0-100
 
   // Relationship to user
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -97,16 +96,18 @@ model TopTrack {
 
   // Ensure one record per user per track
   @@unique([userId, spotifyTrackId])
+  @@index([userId])
+  @@index([rank])
 }
 
 model TopArtist {
-  id             String   @id @default(cuid())
+  id              String   @id @default(cuid())
   spotifyArtistId String
-  name           String
-  genres         String[] // Array of genre strings
-  popularity     Int?     // Spotify popularity score 0-100
-  imageUrl       String?  // Artist image URL
-  rank           Int      // Ranking position (1st, 2nd, etc.)
+  name            String
+  genres          String[] // Array of genre strings
+  popularity      Int? // Spotify popularity score 0-100
+  imageUrl        String? // Artist image URL
+  rank            Int // Ranking position (1st, 2nd, etc.)
 
   // Relationship to user
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -114,4 +115,6 @@ model TopArtist {
 
   // Ensure one record per user per artist
   @@unique([userId, spotifyArtistId])
+  @@index([userId])
+  @@index([rank])
 }

@@ -21,10 +21,16 @@ export async function GET(
   const range = url.searchParams.get("range");
 
   const session = await getServerSession(authOptions);
-  if (!session?.user.id) {
+  if (!session || !session.user) {
     return NextResponse.json({ error: "Session unavailable" }, { status: 401 });
   }
+
   const accessToken = await getValidAccessToken(session?.user.id);
+  if (!accessToken)
+    return NextResponse.json(
+      { error: "Access token cannot be found" },
+      { status: 404 }
+    );
 
   try {
     switch (currentApi) {

@@ -1,31 +1,50 @@
+"use client";
+import { useContext } from "react";
+import { TopArtistsContext, TopTracksContext } from "../DashboardContexts";
+import { GaugeIcon, PaletteIcon, TrendUpIcon } from "@phosphor-icons/react";
+import { StatCard } from "@/components/shared/StatCard";
+import { averagePopularity, popularityRange, uniqueGenere } from "@/lib/overviewFunctions";
+
+
 export default function OverviewPage() {
-  // random screen for now
+  const topArtistArrray = useContext(TopArtistsContext);
+  const topTracksArray = useContext(TopTracksContext);
+console.log('@@')
+console.log(topArtistArrray)
+
   return (
-    <div className="flex flex-col gap-4 h-full animate-fadeIn">
-      <h1 className="text-3xl font-bold text-white">Overview</h1>
-
-      <div className="grid grid-cols-2 gap-4 flex-1">
-        <div className="bg-gradient-to-br from-green-500/20 to-green-500/5 rounded-lg p-6 border border-green-500/30">
-          <p className="text-green-400 text-sm font-semibold">Top Artists</p>
-          <p className="text-white text-2xl font-bold mt-2">50</p>
+    <div className="w-full h-full  flex gap-3">
+      <div className="h-full w-3/4 flex flex-col gap-3">
+        <div className="h-1/4 grid grid-cols-3 gap-3">
+          <StatCard
+            icon={<TrendUpIcon color="white" size={40} weight="bold"/>}
+            title="Average Popularity"
+            subValue="Score of"
+            value={averagePopularity(topTracksArray)}
+            gradientFrom="from-pink-500"
+            gradientTo="to-purple-800"
+          />
+          <StatCard
+            icon={<PaletteIcon color="white" size={40} weight="bold"/>}
+            title="Unique Number Genres"
+            subValue="Listened to is..."
+            value={uniqueGenere(topArtistArrray)}
+            gradientFrom="from-blue-500"
+            gradientTo="to-cyan-500"
+          />
+          <StatCard
+            icon={<GaugeIcon color="white" size={40} weight="bold"/>}
+            title="Popularity Range"
+            subValue="Range of"
+            value={popularityRange(topTracksArray)}
+            gradientFrom="from-green-500"
+            gradientTo="to-emerald-600"
+          />
         </div>
-
-        <div className="bg-gradient-to-br from-blue-500/20 to-blue-500/5 rounded-lg p-6 border border-blue-500/30">
-          <p className="text-blue-400 text-sm font-semibold">Top Tracks</p>
-          <p className="text-white text-2xl font-bold mt-2">150</p>
-        </div>
-
-        <div className="bg-gradient-to-br from-purple-500/20 to-purple-500/5 rounded-lg p-6 border border-purple-500/30">
-          <p className="text-purple-400 text-sm font-semibold">
-            Recently Played
-          </p>
-          <p className="text-white text-2xl font-bold mt-2">42</p>
-        </div>
-
-        <div className="bg-gradient-to-br from-pink-500/20 to-pink-500/5 rounded-lg p-6 border border-pink-500/30">
-          <p className="text-pink-400 text-sm font-semibold">Playlists</p>
-          <p className="text-white text-2xl font-bold mt-2">12</p>
-        </div>
+        <div className="h-3/4 bg-gradient-transparent rounded-xl">Graph</div>
+      </div>
+      <div className="h-full border-2 w-1/4 bg-gradient-transparent rounded-xl">
+        Top Track info
       </div>
     </div>
   );
