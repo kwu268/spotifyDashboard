@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
-import { TopArtistModel } from "../../../../generated/prisma/models/TopArtist";
-import { TopTrackModel } from "../../../../generated/prisma/models/TopTrack";
+import type { TopArtistModel } from "../../../../generated/prisma/models/TopArtist";
+import type { TopTrackModel } from "../../../../generated/prisma/models/TopTrack";
 
 export const fetchTopTracks = async (
   userId: string,

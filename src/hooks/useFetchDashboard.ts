@@ -1,16 +1,21 @@
-import { useState } from "react";
-import { spotifyArtist, spotifyTrack, spotifyUser } from "@/types/spotify";
+import { useState, useCallback } from "react";
+import { spotifyUser, spotifyTrack } from "@/types/spotify";
+import type { TopArtistModel } from "../../generated/prisma/models/TopArtist";
+import type { TopTrackModel } from "../../generated/prisma/models/TopTrack";
+
+type TrackInfoMap = Record<string, spotifyTrack>;
 
 export const useFetchDashboard = () => {
   const [user, setUser] = useState<spotifyUser | undefined>(undefined);
-  const [topArtists, setTopArtists] = useState<spotifyArtist[]>([]);
-  const [topTracks, setTopTracks] = useState<spotifyTrack[]>([]);
+  const [topArtists, setTopArtists] = useState<TopArtistModel[]>([]);
+  const [topTracks, setTopTracks] = useState<TopTrackModel[]>([]);
+  const [topTracskInfo, setTopTrackInfo] = useState<TrackInfoMap>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>(undefined);
 
-  const fetchTopItems = async () => {
+  const fetchTopItems = useCallback(async () => {
     try {
-      console.log('fetching data')
+      console.log("fetching data");
       setError(undefined);
       setIsLoading(true);
 
@@ -32,15 +37,32 @@ export const useFetchDashboard = () => {
       const trackData = await trackRes.json();
       setTopTracks(trackData);
 
+      const trackInfoMap: TrackInfoMap = {};
+
+      for (const track of trackData) {
+        const trackInfoRes = await fetch(
+          `/api/spotify/trackInfo?trackId=${track.spotifyTrackId}`
+        );
+        if (!trackInfoRes.ok) {
+          throw new Error(
+            `HTTP ${trackRes.status}: Tracks: ${trackRes.statusText}`
+          );
+        }
+        const trackData = await trackInfoRes.json();
+        trackInfoMap[track.spotifyTrackId] = trackData;
+
+      }
+      setTopTrackInfo(trackInfoMap)
+
       setIsLoading(false);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Error fetching top items");
       setIsLoading(false);
       console.log(e);
     }
-  };
+  }, []);
 
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     try {
       setError(undefined);
       setIsLoading(true);
@@ -54,13 +76,15 @@ export const useFetchDashboard = () => {
       setIsLoading(false);
       console.log(e);
     }
-  };
+  }, []);
+
   return {
     fetchTopItems,
     fetchProfile,
     user,
     topArtists,
     topTracks,
+    topTracskInfo,
     isLoading,
     error,
   };

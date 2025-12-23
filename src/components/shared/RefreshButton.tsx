@@ -4,7 +4,12 @@ import { useState } from "react";
 import { ArrowClockwiseIcon } from "@phosphor-icons/react";
 import { toast } from "sonner";
 
-export function RefreshButton() {
+interface RefreshButtonProps {
+
+  onSyncFunction: () => void;
+}
+
+export function RefreshButton({onSyncFunction}: RefreshButtonProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -17,6 +22,7 @@ export function RefreshButton() {
       const data = await res.json();
       setIsLoading(false);
       console.log(data);
+      onSyncFunction()
       return data.message;
     } catch (error) {
       console.log(error);
@@ -71,20 +77,20 @@ export function RefreshButton() {
         }`}
       >
         {isLoading ? (
-          <p className="flex items-center gap-1">
+          <span className="flex items-center gap-1">
             Syncing
-            <p className="inline-flex">
-              <p className="animate-pulse" style={{ animationDelay: "0ms" }}>
+            <span className="inline-flex">
+              <span className="animate-pulse" style={{ animationDelay: "0ms" }}>
                 .
-              </p>
-              <p className="animate-pulse" style={{ animationDelay: "200ms" }}>
+              </span>
+              <span className="animate-pulse" style={{ animationDelay: "200ms" }}>
                 .
-              </p>
-              <p className="animate-pulse" style={{ animationDelay: "400ms" }}>
+              </span>
+              <span className="animate-pulse" style={{ animationDelay: "400ms" }}>
                 .
-              </p>
-            </p>
-          </p>
+              </span>
+            </span>
+          </span>
         ) : (
           "Sync Top Items"
         )}

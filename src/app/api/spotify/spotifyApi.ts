@@ -5,7 +5,7 @@ import {
   spotifySavedAlbum,
   spotifyPlayHistory,
   spotifyArtist,
-  spotifyTrack
+  spotifyTrack,
 } from "@/types/spotify";
 
 const baseUrl = process.env.SPOTIFY_API_URL;
@@ -145,13 +145,34 @@ export const getUserTop = async (
     );
 
     if (!userResponse.ok) {
-      console.log(userResponse)
+      console.log(userResponse);
       throw new Error("Failed getting response from Spotify Top API");
     }
     const userData = await userResponse.json();
     return userData;
   } catch (e) {
     console.log("Something went wrong with Spotify User API Error: ", e);
+    throw e;
+  }
+};
+
+export const getTrackInfo = async (accessToken: string, trackId: string): Promise<spotifyTrack> => {
+  try {
+    console.log('in api')
+    const trackResponse = await fetch(`${process.env.SPOTIFY_API_REG_URL}${process.env.SPOTIFY_TRACKS_ENDPOINT}/${trackId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!trackResponse.ok) {
+      throw new Error("Failed getting response from Spotify User API");
+    }
+    const trackData = await trackResponse.json();
+    return trackData;
+  } catch (e) {
+    console.log("Something went wrong with Spotify Track API Error: ", e);
     throw e;
   }
 };

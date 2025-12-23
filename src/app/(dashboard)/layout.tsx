@@ -1,9 +1,9 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import { useSession } from "next-auth/react";
-import { useEffect, useState, useRef } from "react";
-import { TopArtistsContext, TopTracksContext } from "./DashboardContexts";
-import { Sidebar, TimeFilter, RefreshButton } from "../../components/shared";
+import { useEffect, useRef } from "react";
+import { TopArtistsContext, TopTracksContext, TopTrackInfoContext } from "./DashboardContexts";
+import { Sidebar, RefreshButton } from "../../components/shared";
 import { LoadingView } from "@/components/LoadingView";
 import { Toaster } from "sonner";
 import { useFetchDashboard } from "@/hooks/useFetchDashboard";
@@ -20,10 +20,9 @@ export default function DashboardLayout({ children }: DashboardViewProps) {
     topArtists,
     topTracks,
     isLoading,
+    topTracskInfo,
     error,
   } = useFetchDashboard();
-
-  const [selectedTime, setSelectedTime] = useState<string>("2025");
   const { data: session } = useSession();
   const isProfileFetchedRef = useRef(false);
 
@@ -34,13 +33,11 @@ export default function DashboardLayout({ children }: DashboardViewProps) {
     fetchProfile();
     fetchTopItems();
 
-    console.log("test");
-    fetchProfile();
   }, [session]);
 
   return (
     <main className="min-h-screen bg-cover bg-center bg-no-repeat bg-[url('/images/concert.png')]">
-      {isLoading ? (
+      {isLoading || !topArtists || !topTracks || !topTracskInfo ? (
         <LoadingView isLoading={isLoading} />
       ) : (
         <div className="flex px-5 py-5 gap-3 min-h-screen animate-fadeIn">
@@ -49,13 +46,16 @@ export default function DashboardLayout({ children }: DashboardViewProps) {
           {/* Right Side Parent Div */}
           <div className=" w-full flex flex-col gap-5  rounded-2xl">
             {/* Top Timeline Filter Bar */}
-            <RefreshButton />
+            <RefreshButton onSyncFunction={fetchTopItems}/>
 
             {/* Main Content */}
-            <div className=" flex-1 rounded-2xl  animate-fadeIn">
+            <div className=" flex-1 rounded-2xl animate-fadeIn">
               <TopArtistsContext.Provider value={topArtists}>
                 <TopTracksContext.Provider value={topTracks}>
+                  <TopTrackInfoContext value={topTracskInfo}>
+
                   {children}
+                  </TopTrackInfoContext>
                 </TopTracksContext.Provider>
               </TopArtistsContext.Provider>
               <Toaster />

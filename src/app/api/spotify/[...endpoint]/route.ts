@@ -8,6 +8,7 @@ import {
   getUserAlbums,
   getUserTop,
   getUserRecentlyPlayed,
+  getTrackInfo
 } from "../spotifyApi";
 
 export async function GET(
@@ -19,6 +20,7 @@ export async function GET(
 
   const url = new URL(request.url);
   const range = url.searchParams.get("range");
+  const trackId = url.searchParams.get("trackId");
 
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
@@ -54,6 +56,11 @@ export async function GET(
       case "topTracks":
         return NextResponse.json(
           await getUserTop(accessToken, "tracks", range!, 50)
+        );
+
+      case "trackInfo":
+        return NextResponse.json(
+          await getTrackInfo(accessToken, trackId!)
         );
 
       default:

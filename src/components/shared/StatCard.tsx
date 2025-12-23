@@ -1,5 +1,10 @@
 import { ReactNode } from "react";
 import { spotifyTrack, spotifyArtist } from "@/types/spotify"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 interface StatCardProps {
   icon: ReactNode;
@@ -8,6 +13,7 @@ interface StatCardProps {
   value: string | number;
   gradientFrom?: string;
   gradientTo?: string;
+  tooltip?: boolean;
 }
 
 export function StatCard({
@@ -17,6 +23,7 @@ export function StatCard({
   value,
   gradientFrom,
   gradientTo,
+  tooltip = false
 }: StatCardProps) {
   return (
     <div className="bg-gradient-transparent rounded-xl flex flex-col ">
