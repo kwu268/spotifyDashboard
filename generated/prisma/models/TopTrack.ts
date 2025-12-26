@@ -66,6 +66,7 @@ export type TopTrackCountAggregateOutputType = {
   albumImageUrl: number
   rank: number
   popularity: number
+  trackInfo: number
   userId: number
   _all: number
 }
@@ -111,6 +112,7 @@ export type TopTrackCountAggregateInputType = {
   albumImageUrl?: true
   rank?: true
   popularity?: true
+  trackInfo?: true
   userId?: true
   _all?: true
 }
@@ -209,6 +211,7 @@ export type TopTrackGroupByOutputType = {
   albumImageUrl: string | null
   rank: number
   popularity: number | null
+  trackInfo: runtime.JsonValue | null
   userId: string
   _count: TopTrackCountAggregateOutputType | null
   _avg: TopTrackAvgAggregateOutputType | null
@@ -243,6 +246,7 @@ export type TopTrackWhereInput = {
   albumImageUrl?: Prisma.StringNullableFilter<"TopTrack"> | string | null
   rank?: Prisma.IntFilter<"TopTrack"> | number
   popularity?: Prisma.IntNullableFilter<"TopTrack"> | number | null
+  trackInfo?: Prisma.JsonNullableFilter<"TopTrack">
   userId?: Prisma.StringFilter<"TopTrack"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -255,6 +259,7 @@ export type TopTrackOrderByWithRelationInput = {
   albumImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   rank?: Prisma.SortOrder
   popularity?: Prisma.SortOrderInput | Prisma.SortOrder
+  trackInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -271,6 +276,7 @@ export type TopTrackWhereUniqueInput = Prisma.AtLeast<{
   albumImageUrl?: Prisma.StringNullableFilter<"TopTrack"> | string | null
   rank?: Prisma.IntFilter<"TopTrack"> | number
   popularity?: Prisma.IntNullableFilter<"TopTrack"> | number | null
+  trackInfo?: Prisma.JsonNullableFilter<"TopTrack">
   userId?: Prisma.StringFilter<"TopTrack"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_spotifyTrackId">
@@ -283,6 +289,7 @@ export type TopTrackOrderByWithAggregationInput = {
   albumImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   rank?: Prisma.SortOrder
   popularity?: Prisma.SortOrderInput | Prisma.SortOrder
+  trackInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   _count?: Prisma.TopTrackCountOrderByAggregateInput
   _avg?: Prisma.TopTrackAvgOrderByAggregateInput
@@ -302,6 +309,7 @@ export type TopTrackScalarWhereWithAggregatesInput = {
   albumImageUrl?: Prisma.StringNullableWithAggregatesFilter<"TopTrack"> | string | null
   rank?: Prisma.IntWithAggregatesFilter<"TopTrack"> | number
   popularity?: Prisma.IntNullableWithAggregatesFilter<"TopTrack"> | number | null
+  trackInfo?: Prisma.JsonNullableWithAggregatesFilter<"TopTrack">
   userId?: Prisma.StringWithAggregatesFilter<"TopTrack"> | string
 }
 
@@ -313,6 +321,7 @@ export type TopTrackCreateInput = {
   albumImageUrl?: string | null
   rank: number
   popularity?: number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   user: Prisma.UserCreateNestedOneWithoutTopTracksInput
 }
 
@@ -324,6 +333,7 @@ export type TopTrackUncheckedCreateInput = {
   albumImageUrl?: string | null
   rank: number
   popularity?: number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   userId: string
 }
 
@@ -335,6 +345,7 @@ export type TopTrackUpdateInput = {
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   user?: Prisma.UserUpdateOneRequiredWithoutTopTracksNestedInput
 }
 
@@ -346,6 +357,7 @@ export type TopTrackUncheckedUpdateInput = {
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -357,6 +369,7 @@ export type TopTrackCreateManyInput = {
   albumImageUrl?: string | null
   rank: number
   popularity?: number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   userId: string
 }
 
@@ -368,6 +381,7 @@ export type TopTrackUpdateManyMutationInput = {
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type TopTrackUncheckedUpdateManyInput = {
@@ -378,6 +392,7 @@ export type TopTrackUncheckedUpdateManyInput = {
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -404,6 +419,7 @@ export type TopTrackCountOrderByAggregateInput = {
   albumImageUrl?: Prisma.SortOrder
   rank?: Prisma.SortOrder
   popularity?: Prisma.SortOrder
+  trackInfo?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -489,6 +505,7 @@ export type TopTrackCreateWithoutUserInput = {
   albumImageUrl?: string | null
   rank: number
   popularity?: number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type TopTrackUncheckedCreateWithoutUserInput = {
@@ -499,6 +516,7 @@ export type TopTrackUncheckedCreateWithoutUserInput = {
   albumImageUrl?: string | null
   rank: number
   popularity?: number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type TopTrackCreateOrConnectWithoutUserInput = {
@@ -538,6 +556,7 @@ export type TopTrackScalarWhereInput = {
   albumImageUrl?: Prisma.StringNullableFilter<"TopTrack"> | string | null
   rank?: Prisma.IntFilter<"TopTrack"> | number
   popularity?: Prisma.IntNullableFilter<"TopTrack"> | number | null
+  trackInfo?: Prisma.JsonNullableFilter<"TopTrack">
   userId?: Prisma.StringFilter<"TopTrack"> | string
 }
 
@@ -549,6 +568,7 @@ export type TopTrackCreateManyUserInput = {
   albumImageUrl?: string | null
   rank: number
   popularity?: number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type TopTrackUpdateWithoutUserInput = {
@@ -559,6 +579,7 @@ export type TopTrackUpdateWithoutUserInput = {
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type TopTrackUncheckedUpdateWithoutUserInput = {
@@ -569,6 +590,7 @@ export type TopTrackUncheckedUpdateWithoutUserInput = {
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type TopTrackUncheckedUpdateManyWithoutUserInput = {
@@ -579,6 +601,7 @@ export type TopTrackUncheckedUpdateManyWithoutUserInput = {
   albumImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 
@@ -591,6 +614,7 @@ export type TopTrackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   albumImageUrl?: boolean
   rank?: boolean
   popularity?: boolean
+  trackInfo?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["topTrack"]>
@@ -603,6 +627,7 @@ export type TopTrackSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   albumImageUrl?: boolean
   rank?: boolean
   popularity?: boolean
+  trackInfo?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["topTrack"]>
@@ -615,6 +640,7 @@ export type TopTrackSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   albumImageUrl?: boolean
   rank?: boolean
   popularity?: boolean
+  trackInfo?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["topTrack"]>
@@ -627,10 +653,11 @@ export type TopTrackSelectScalar = {
   albumImageUrl?: boolean
   rank?: boolean
   popularity?: boolean
+  trackInfo?: boolean
   userId?: boolean
 }
 
-export type TopTrackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "spotifyTrackId" | "title" | "artist" | "albumImageUrl" | "rank" | "popularity" | "userId", ExtArgs["result"]["topTrack"]>
+export type TopTrackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "spotifyTrackId" | "title" | "artist" | "albumImageUrl" | "rank" | "popularity" | "trackInfo" | "userId", ExtArgs["result"]["topTrack"]>
 export type TopTrackInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -654,6 +681,7 @@ export type $TopTrackPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     albumImageUrl: string | null
     rank: number
     popularity: number | null
+    trackInfo: runtime.JsonValue | null
     userId: string
   }, ExtArgs["result"]["topTrack"]>
   composites: {}
@@ -1086,6 +1114,7 @@ export interface TopTrackFieldRefs {
   readonly albumImageUrl: Prisma.FieldRef<"TopTrack", 'String'>
   readonly rank: Prisma.FieldRef<"TopTrack", 'Int'>
   readonly popularity: Prisma.FieldRef<"TopTrack", 'Int'>
+  readonly trackInfo: Prisma.FieldRef<"TopTrack", 'Json'>
   readonly userId: Prisma.FieldRef<"TopTrack", 'String'>
 }
     

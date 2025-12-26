@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getValidAccessToken } from "@/lib/getValidAccountToken";
-import { getUserTop } from "../spotifyApi";
+import { getUserTop, getTrackInfo } from "../spotifyApi";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { spotifyArtist, spotifyTrack } from "@/types/spotify";
@@ -70,13 +70,13 @@ export async function POST(request: Request) {
     const totalArtists = Math.min(firstTopArtistsRes.total, MAX_RESULTS);
 
     while (artistOffset < totalArtists) {
-      const currentTopTrackRes = await getUserTop(
+      const currentTopArtistRes = await getUserTop(
         accessToken,
         "artists",
         "long_term",
         artistOffset
       );
-      topArtistsArray.push(...(currentTopTrackRes.items as spotifyArtist[]));
+      topArtistsArray.push(...(currentTopArtistRes.items as spotifyArtist[]));
       artistOffset += 50;
     }
 
@@ -85,6 +85,10 @@ export async function POST(request: Request) {
     let syncedTracks = 0;
     for (let index = 0; index < topTrackArray.length; index++) {
       const currentTrack = topTrackArray[index];
+      
+      // Fetch full track info from Spotify API
+      const fullTrackInfo = await getTrackInfo(accessToken, currentTrack.id);
+      
       const isExist = await prisma.topTrack.findUnique({
         where: {
           userId_spotifyTrackId: {
@@ -102,7 +106,10 @@ export async function POST(request: Request) {
               spotifyTrackId: currentTrack.id,
             },
           },
-          data: { rank: index + 1 },
+          data: {
+            rank: index + 1,
+            trackInfo: fullTrackInfo as any
+          },
         });
       } else {
         await prisma.topTrack.create({
@@ -113,6 +120,7 @@ export async function POST(request: Request) {
             albumImageUrl: currentTrack.album.images[0]?.url || null,
             rank: index + 1,
             popularity: currentTrack.popularity,
+            trackInfo: fullTrackInfo as any,
             userId: session?.user.id,
           },
         });

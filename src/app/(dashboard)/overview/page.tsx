@@ -3,7 +3,6 @@ import { useContext, useState } from "react";
 import {
   TopArtistsContext,
   TopTracksContext,
-  TopTrackInfoContext,
 } from "../DashboardContexts";
 import { GaugeIcon, PaletteIcon, TrendUpIcon } from "@phosphor-icons/react";
 import { StatCard } from "@/components/shared/StatCard";
@@ -17,7 +16,6 @@ import {
 export default function OverviewPage() {
   const topArtistArrray = useContext(TopArtistsContext);
   const topTracksArray = useContext(TopTracksContext);
-  const topTrackInfo = useContext(TopTrackInfoContext);
 
   const [selectedTrackIndex, setSelectedTrackIndex] = useState<number>(0);
 
@@ -25,14 +23,13 @@ export default function OverviewPage() {
     setSelectedTrackIndex(trackIndex);
   };
 
-  if (!topArtistArrray || !topTracksArray || !topTrackInfo) {
+  if (!topArtistArrray || !topTracksArray) {
     return (
       <div className="w-full h-full flex items-center justify-center text-white">
         Loading...
       </div>
     );
   }
-  console.log("HELLO: ", topTrackInfo);
   return (
     <div className="w-full h-full  flex gap-3 ">
       <div className="h-full w-3/4 flex flex-col gap-3  animate-fadein">
@@ -97,9 +94,8 @@ export default function OverviewPage() {
           <div className="border border-white w-full mx-auto"></div>
           <div>
             <h2 className="font-bold text-2xl overflow-auto">
-              {topTrackInfo?.[
-                topTracksArray?.[selectedTrackIndex]?.spotifyTrackId
-              ]?.album?.name ?? "N/A"}
+              {topTracksArray?.[selectedTrackIndex]?.trackInfo?.album.name ??
+                "N/A"}
             </h2>
             <h2 className="text-white/60">Album name</h2>
           </div>
