@@ -1,10 +1,11 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getValidAccessToken } from "@/lib/getValidAccountToken";
-import { getUserTop, getTrackInfo } from "../spotifyApi";
+import { getUserTop, getTrackInfo, getArtistInfo } from "../spotifyApi";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { spotifyArtist, spotifyTrack } from "@/types/spotify";
+import { analyzeSentiment } from "@/lib/claude/analyzeSentiment";
 
 export async function POST(request: Request) {
   try {
@@ -85,10 +86,17 @@ export async function POST(request: Request) {
     let syncedTracks = 0;
     for (let index = 0; index < topTrackArray.length; index++) {
       const currentTrack = topTrackArray[index];
-      
+
       // Fetch full track info from Spotify API
       const fullTrackInfo = await getTrackInfo(accessToken, currentTrack.id);
-      
+
+      const genres: string[] = []
+      for (let index = 0; index < fullTrackInfo.artists.length; index++) {
+        const currentGenres = await getArtistInfo(accessToken, fullTrackInfo.artists[index].id)
+        genres.push(...currentGenres.genres)
+      }
+      const finalGenres = new Set(genres)
+
       const isExist = await prisma.topTrack.findUnique({
         where: {
           userId_spotifyTrackId: {
@@ -108,7 +116,8 @@ export async function POST(request: Request) {
           },
           data: {
             rank: index + 1,
-            trackInfo: fullTrackInfo as any
+            trackInfo: fullTrackInfo as any,
+            artistGenre: Array.from(finalGenres)
           },
         });
       } else {
@@ -121,6 +130,7 @@ export async function POST(request: Request) {
             rank: index + 1,
             popularity: currentTrack.popularity,
             trackInfo: fullTrackInfo as any,
+            artistGenre: Array.from(finalGenres),
             userId: session?.user.id,
           },
         });

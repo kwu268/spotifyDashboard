@@ -70,6 +70,11 @@ export type VerificationToken = Prisma.VerificationTokenModel
  */
 export type TopTrack = Prisma.TopTrackModel
 /**
+ * Model TrackFeatures
+ * 
+ */
+export type TrackFeatures = Prisma.TrackFeaturesModel
+/**
  * Model TopArtist
  * 
  */

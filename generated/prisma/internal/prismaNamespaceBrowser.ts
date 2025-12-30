@@ -57,6 +57,7 @@ export const ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   TopTrack: 'TopTrack',
+  TrackFeatures: 'TrackFeatures',
   TopArtist: 'TopArtist'
 } as const
 
@@ -150,10 +151,27 @@ export const TopTrackScalarFieldEnum = {
   rank: 'rank',
   popularity: 'popularity',
   trackInfo: 'trackInfo',
+  artistGenre: 'artistGenre',
   userId: 'userId'
 } as const
 
 export type TopTrackScalarFieldEnum = (typeof TopTrackScalarFieldEnum)[keyof typeof TopTrackScalarFieldEnum]
+
+
+export const TrackFeaturesScalarFieldEnum = {
+  id: 'id',
+  spotifyTrackId: 'spotifyTrackId',
+  danceability: 'danceability',
+  energy: 'energy',
+  instrumentalness: 'instrumentalness',
+  liveness: 'liveness',
+  loudness: 'loudness',
+  speechiness: 'speechiness',
+  valence: 'valence',
+  userId: 'userId'
+} as const
+
+export type TrackFeaturesScalarFieldEnum = (typeof TrackFeaturesScalarFieldEnum)[keyof typeof TrackFeaturesScalarFieldEnum]
 
 
 export const TopArtistScalarFieldEnum = {

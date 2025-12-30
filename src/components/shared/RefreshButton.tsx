@@ -19,6 +19,7 @@ export function RefreshButton({onSyncFunction}: RefreshButtonProps) {
       setIsError(false);
       setIsLoading(true);
       const res = await fetch("/api/spotify/syncTopItems", { method: "POST" });
+      const resAudioFeat = await fetch("/api/spotify/syncAudioFeats", { method: "POST" });
       const data = await res.json();
       setIsLoading(false);
       console.log(data);

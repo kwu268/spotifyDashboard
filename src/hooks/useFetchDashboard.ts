@@ -12,7 +12,6 @@ export const useFetchDashboard = () => {
 
   const fetchTopItems = useCallback(async () => {
     try {
-      console.log("fetching data");
       setError(undefined);
       setIsLoading(true);
 

@@ -25,6 +25,7 @@ model User {
   historicalTracks Track[]
   topTracks        TopTrack[]
   topArtists       TopArtist[]
+  trackFeatures    TrackFeatures[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -91,7 +92,8 @@ model TopTrack {
   popularity     Int? // Spotify popularity score 0-100
 
   // Full track info from Spotify API
-  trackInfo      Json? // Complete track object with album, artists, external_urls, etc.
+  trackInfo   Json? // Complete track object with album, artists, external_urls, etc.
+  artistGenre String[]
 
   // Relationship to user
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -101,6 +103,22 @@ model TopTrack {
   @@unique([userId, spotifyTrackId])
   @@index([userId])
   @@index([rank])
+}
+
+model TrackFeatures {
+  id               String  @id @default(cuid())
+  spotifyTrackId   String  @unique
+  danceability     Float
+  energy           Float
+  instrumentalness Float
+  liveness         Float
+  loudness         Float
+  speechiness      Float
+  valence          Float
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  @@index([spotifyTrackId])
 }
 
 model TopArtist {

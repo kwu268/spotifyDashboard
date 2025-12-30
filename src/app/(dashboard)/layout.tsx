@@ -34,10 +34,9 @@ export default function DashboardLayout({ children }: DashboardViewProps) {
 
   }, [session, fetchProfile, fetchTopItems]);
 
-
   return (
     <main className="min-h-screen bg-cover bg-center bg-no-repeat bg-[url('/images/concert.png')]">
-      {isLoading && !topArtists && !topTracks ? (
+      {isLoading || topArtists.length === 0 || topTracks.length === 0 ? (
         <LoadingView isLoading={isLoading} />
       ) : (
         <div className="flex px-5 py-5 gap-3 min-h-screen animate-fadeIn">

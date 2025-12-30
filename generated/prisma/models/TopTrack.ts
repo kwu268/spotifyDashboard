@@ -67,6 +67,7 @@ export type TopTrackCountAggregateOutputType = {
   rank: number
   popularity: number
   trackInfo: number
+  artistGenre: number
   userId: number
   _all: number
 }
@@ -113,6 +114,7 @@ export type TopTrackCountAggregateInputType = {
   rank?: true
   popularity?: true
   trackInfo?: true
+  artistGenre?: true
   userId?: true
   _all?: true
 }
@@ -212,6 +214,7 @@ export type TopTrackGroupByOutputType = {
   rank: number
   popularity: number | null
   trackInfo: runtime.JsonValue | null
+  artistGenre: string[]
   userId: string
   _count: TopTrackCountAggregateOutputType | null
   _avg: TopTrackAvgAggregateOutputType | null
@@ -247,6 +250,7 @@ export type TopTrackWhereInput = {
   rank?: Prisma.IntFilter<"TopTrack"> | number
   popularity?: Prisma.IntNullableFilter<"TopTrack"> | number | null
   trackInfo?: Prisma.JsonNullableFilter<"TopTrack">
+  artistGenre?: Prisma.StringNullableListFilter<"TopTrack">
   userId?: Prisma.StringFilter<"TopTrack"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -260,6 +264,7 @@ export type TopTrackOrderByWithRelationInput = {
   rank?: Prisma.SortOrder
   popularity?: Prisma.SortOrderInput | Prisma.SortOrder
   trackInfo?: Prisma.SortOrderInput | Prisma.SortOrder
+  artistGenre?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -277,6 +282,7 @@ export type TopTrackWhereUniqueInput = Prisma.AtLeast<{
   rank?: Prisma.IntFilter<"TopTrack"> | number
   popularity?: Prisma.IntNullableFilter<"TopTrack"> | number | null
   trackInfo?: Prisma.JsonNullableFilter<"TopTrack">
+  artistGenre?: Prisma.StringNullableListFilter<"TopTrack">
   userId?: Prisma.StringFilter<"TopTrack"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_spotifyTrackId">
@@ -290,6 +296,7 @@ export type TopTrackOrderByWithAggregationInput = {
   rank?: Prisma.SortOrder
   popularity?: Prisma.SortOrderInput | Prisma.SortOrder
   trackInfo?: Prisma.SortOrderInput | Prisma.SortOrder
+  artistGenre?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   _count?: Prisma.TopTrackCountOrderByAggregateInput
   _avg?: Prisma.TopTrackAvgOrderByAggregateInput
@@ -310,6 +317,7 @@ export type TopTrackScalarWhereWithAggregatesInput = {
   rank?: Prisma.IntWithAggregatesFilter<"TopTrack"> | number
   popularity?: Prisma.IntNullableWithAggregatesFilter<"TopTrack"> | number | null
   trackInfo?: Prisma.JsonNullableWithAggregatesFilter<"TopTrack">
+  artistGenre?: Prisma.StringNullableListFilter<"TopTrack">
   userId?: Prisma.StringWithAggregatesFilter<"TopTrack"> | string
 }
 
@@ -322,6 +330,7 @@ export type TopTrackCreateInput = {
   rank: number
   popularity?: number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackCreateartistGenreInput | string[]
   user: Prisma.UserCreateNestedOneWithoutTopTracksInput
 }
 
@@ -334,6 +343,7 @@ export type TopTrackUncheckedCreateInput = {
   rank: number
   popularity?: number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackCreateartistGenreInput | string[]
   userId: string
 }
 
@@ -346,6 +356,7 @@ export type TopTrackUpdateInput = {
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackUpdateartistGenreInput | string[]
   user?: Prisma.UserUpdateOneRequiredWithoutTopTracksNestedInput
 }
 
@@ -358,6 +369,7 @@ export type TopTrackUncheckedUpdateInput = {
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackUpdateartistGenreInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -370,6 +382,7 @@ export type TopTrackCreateManyInput = {
   rank: number
   popularity?: number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackCreateartistGenreInput | string[]
   userId: string
 }
 
@@ -382,6 +395,7 @@ export type TopTrackUpdateManyMutationInput = {
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackUpdateartistGenreInput | string[]
 }
 
 export type TopTrackUncheckedUpdateManyInput = {
@@ -393,6 +407,7 @@ export type TopTrackUncheckedUpdateManyInput = {
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackUpdateartistGenreInput | string[]
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -404,6 +419,14 @@ export type TopTrackListRelationFilter = {
 
 export type TopTrackOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type TopTrackUserIdSpotifyTrackIdCompoundUniqueInput = {
@@ -420,6 +443,7 @@ export type TopTrackCountOrderByAggregateInput = {
   rank?: Prisma.SortOrder
   popularity?: Prisma.SortOrder
   trackInfo?: Prisma.SortOrder
+  artistGenre?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -497,6 +521,15 @@ export type TopTrackUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.TopTrackScalarWhereInput | Prisma.TopTrackScalarWhereInput[]
 }
 
+export type TopTrackCreateartistGenreInput = {
+  set: string[]
+}
+
+export type TopTrackUpdateartistGenreInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type TopTrackCreateWithoutUserInput = {
   id?: string
   spotifyTrackId: string
@@ -506,6 +539,7 @@ export type TopTrackCreateWithoutUserInput = {
   rank: number
   popularity?: number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackCreateartistGenreInput | string[]
 }
 
 export type TopTrackUncheckedCreateWithoutUserInput = {
@@ -517,6 +551,7 @@ export type TopTrackUncheckedCreateWithoutUserInput = {
   rank: number
   popularity?: number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackCreateartistGenreInput | string[]
 }
 
 export type TopTrackCreateOrConnectWithoutUserInput = {
@@ -557,6 +592,7 @@ export type TopTrackScalarWhereInput = {
   rank?: Prisma.IntFilter<"TopTrack"> | number
   popularity?: Prisma.IntNullableFilter<"TopTrack"> | number | null
   trackInfo?: Prisma.JsonNullableFilter<"TopTrack">
+  artistGenre?: Prisma.StringNullableListFilter<"TopTrack">
   userId?: Prisma.StringFilter<"TopTrack"> | string
 }
 
@@ -569,6 +605,7 @@ export type TopTrackCreateManyUserInput = {
   rank: number
   popularity?: number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackCreateartistGenreInput | string[]
 }
 
 export type TopTrackUpdateWithoutUserInput = {
@@ -580,6 +617,7 @@ export type TopTrackUpdateWithoutUserInput = {
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackUpdateartistGenreInput | string[]
 }
 
 export type TopTrackUncheckedUpdateWithoutUserInput = {
@@ -591,6 +629,7 @@ export type TopTrackUncheckedUpdateWithoutUserInput = {
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackUpdateartistGenreInput | string[]
 }
 
 export type TopTrackUncheckedUpdateManyWithoutUserInput = {
@@ -602,6 +641,7 @@ export type TopTrackUncheckedUpdateManyWithoutUserInput = {
   rank?: Prisma.IntFieldUpdateOperationsInput | number
   popularity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   trackInfo?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  artistGenre?: Prisma.TopTrackUpdateartistGenreInput | string[]
 }
 
 
@@ -615,6 +655,7 @@ export type TopTrackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   rank?: boolean
   popularity?: boolean
   trackInfo?: boolean
+  artistGenre?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["topTrack"]>
@@ -628,6 +669,7 @@ export type TopTrackSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   rank?: boolean
   popularity?: boolean
   trackInfo?: boolean
+  artistGenre?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["topTrack"]>
@@ -641,6 +683,7 @@ export type TopTrackSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   rank?: boolean
   popularity?: boolean
   trackInfo?: boolean
+  artistGenre?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["topTrack"]>
@@ -654,10 +697,11 @@ export type TopTrackSelectScalar = {
   rank?: boolean
   popularity?: boolean
   trackInfo?: boolean
+  artistGenre?: boolean
   userId?: boolean
 }
 
-export type TopTrackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "spotifyTrackId" | "title" | "artist" | "albumImageUrl" | "rank" | "popularity" | "trackInfo" | "userId", ExtArgs["result"]["topTrack"]>
+export type TopTrackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "spotifyTrackId" | "title" | "artist" | "albumImageUrl" | "rank" | "popularity" | "trackInfo" | "artistGenre" | "userId", ExtArgs["result"]["topTrack"]>
 export type TopTrackInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -682,6 +726,7 @@ export type $TopTrackPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     rank: number
     popularity: number | null
     trackInfo: runtime.JsonValue | null
+    artistGenre: string[]
     userId: string
   }, ExtArgs["result"]["topTrack"]>
   composites: {}
@@ -1115,6 +1160,7 @@ export interface TopTrackFieldRefs {
   readonly rank: Prisma.FieldRef<"TopTrack", 'Int'>
   readonly popularity: Prisma.FieldRef<"TopTrack", 'Int'>
   readonly trackInfo: Prisma.FieldRef<"TopTrack", 'Json'>
+  readonly artistGenre: Prisma.FieldRef<"TopTrack", 'String[]'>
   readonly userId: Prisma.FieldRef<"TopTrack", 'String'>
 }
     

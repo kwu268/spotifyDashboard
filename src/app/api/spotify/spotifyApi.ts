@@ -158,7 +158,6 @@ export const getUserTop = async (
 
 export const getTrackInfo = async (accessToken: string, trackId: string): Promise<spotifyTrack> => {
   try {
-    console.log('in api')
     const trackResponse = await fetch(`${process.env.SPOTIFY_API_REG_URL}${process.env.SPOTIFY_TRACKS_ENDPOINT}/${trackId}`, {
       method: "GET",
       headers: {
@@ -173,6 +172,28 @@ export const getTrackInfo = async (accessToken: string, trackId: string): Promis
     return trackData;
   } catch (e) {
     console.log("Something went wrong with Spotify Track API Error: ", e);
+    throw e;
+  }
+};
+
+
+
+export const getArtistInfo = async (accessToken: string, artistId: string): Promise<spotifyArtist> => {
+  try {
+    const artistResponse = await fetch(`${process.env.SPOTIFY_API_REG_URL}${process.env.SPOTIFY_ARTISTS_ENDPOINT}/${artistId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!artistResponse.ok) {
+      throw new Error("Failed getting response from Spotify User API");
+    }
+    const artistData = await artistResponse.json();
+    return artistData;
+  } catch (e) {
+    console.log("Something went wrong with Spotify Artists API Error: ", e);
     throw e;
   }
 };

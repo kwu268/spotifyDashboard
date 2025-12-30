@@ -390,6 +390,7 @@ export const ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   TopTrack: 'TopTrack',
+  TrackFeatures: 'TrackFeatures',
   TopArtist: 'TopArtist'
 } as const
 
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "track" | "account" | "session" | "verificationToken" | "topTrack" | "topArtist"
+    modelProps: "user" | "track" | "account" | "session" | "verificationToken" | "topTrack" | "trackFeatures" | "topArtist"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -854,6 +855,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TrackFeatures: {
+      payload: Prisma.$TrackFeaturesPayload<ExtArgs>
+      fields: Prisma.TrackFeaturesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TrackFeaturesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TrackFeaturesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload>
+        }
+        findFirst: {
+          args: Prisma.TrackFeaturesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TrackFeaturesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload>
+        }
+        findMany: {
+          args: Prisma.TrackFeaturesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload>[]
+        }
+        create: {
+          args: Prisma.TrackFeaturesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload>
+        }
+        createMany: {
+          args: Prisma.TrackFeaturesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TrackFeaturesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload>[]
+        }
+        delete: {
+          args: Prisma.TrackFeaturesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload>
+        }
+        update: {
+          args: Prisma.TrackFeaturesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload>
+        }
+        deleteMany: {
+          args: Prisma.TrackFeaturesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TrackFeaturesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TrackFeaturesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload>[]
+        }
+        upsert: {
+          args: Prisma.TrackFeaturesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrackFeaturesPayload>
+        }
+        aggregate: {
+          args: Prisma.TrackFeaturesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTrackFeatures>
+        }
+        groupBy: {
+          args: Prisma.TrackFeaturesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TrackFeaturesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TrackFeaturesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TrackFeaturesCountAggregateOutputType> | number
+        }
+      }
+    }
     TopArtist: {
       payload: Prisma.$TopArtistPayload<ExtArgs>
       fields: Prisma.TopArtistFieldRefs
@@ -1041,10 +1116,27 @@ export const TopTrackScalarFieldEnum = {
   rank: 'rank',
   popularity: 'popularity',
   trackInfo: 'trackInfo',
+  artistGenre: 'artistGenre',
   userId: 'userId'
 } as const
 
 export type TopTrackScalarFieldEnum = (typeof TopTrackScalarFieldEnum)[keyof typeof TopTrackScalarFieldEnum]
+
+
+export const TrackFeaturesScalarFieldEnum = {
+  id: 'id',
+  spotifyTrackId: 'spotifyTrackId',
+  danceability: 'danceability',
+  energy: 'energy',
+  instrumentalness: 'instrumentalness',
+  liveness: 'liveness',
+  loudness: 'loudness',
+  speechiness: 'speechiness',
+  valence: 'valence',
+  userId: 'userId'
+} as const
+
+export type TrackFeaturesScalarFieldEnum = (typeof TrackFeaturesScalarFieldEnum)[keyof typeof TrackFeaturesScalarFieldEnum]
 
 
 export const TopArtistScalarFieldEnum = {
@@ -1278,6 +1370,7 @@ export type GlobalOmitConfig = {
   session?: Prisma.SessionOmit
   verificationToken?: Prisma.VerificationTokenOmit
   topTrack?: Prisma.TopTrackOmit
+  trackFeatures?: Prisma.TrackFeaturesOmit
   topArtist?: Prisma.TopArtistOmit
 }
 

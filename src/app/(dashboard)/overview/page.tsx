@@ -13,9 +13,14 @@ import {
   uniqueGenere,
 } from "@/lib/overviewFunctions";
 
+
+import { analyzeSentiment } from "@/lib/claude/analyzeSentiment";
+
+
 export default function OverviewPage() {
   const topArtistArrray = useContext(TopArtistsContext);
   const topTracksArray = useContext(TopTracksContext);
+  console.log('test: ', topTracksArray)
 
   const [selectedTrackIndex, setSelectedTrackIndex] = useState<number>(0);
 
@@ -23,13 +28,7 @@ export default function OverviewPage() {
     setSelectedTrackIndex(trackIndex);
   };
 
-  if (!topArtistArrray || !topTracksArray) {
-    return (
-      <div className="w-full h-full flex items-center justify-center text-white">
-        Loading...
-      </div>
-    );
-  }
+
   return (
     <div className="w-full h-full  flex gap-3 ">
       <div className="h-full w-3/4 flex flex-col gap-3  animate-fadein">
@@ -94,7 +93,7 @@ export default function OverviewPage() {
           <div className="border border-white w-full mx-auto"></div>
           <div>
             <h2 className="font-bold text-2xl overflow-auto">
-              {topTracksArray?.[selectedTrackIndex]?.trackInfo?.album.name ??
+              {(topTracksArray?.[selectedTrackIndex]?.trackInfo as any)?.album.name ??
                 "N/A"}
             </h2>
             <h2 className="text-white/60">Album name</h2>
