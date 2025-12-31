@@ -2,7 +2,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { useSession } from "next-auth/react";
 import { useEffect, useRef } from "react";
-import { TopArtistsContext, TopTracksContext } from "./DashboardContexts";
+import {
+  TopArtistsContext,
+  TopTracksContext,
+  AudioFeatsContext,
+} from "./DashboardContexts";
 import { Sidebar, RefreshButton } from "../../components/shared";
 import { LoadingView } from "@/components/LoadingView";
 import { Toaster } from "sonner";
@@ -16,7 +20,9 @@ export default function DashboardLayout({ children }: DashboardViewProps) {
   const {
     fetchTopItems,
     fetchProfile,
+    fetchAudioFeats,
     user,
+    audioData,
     topArtists,
     topTracks,
     isLoading,
@@ -31,12 +37,12 @@ export default function DashboardLayout({ children }: DashboardViewProps) {
 
     fetchProfile();
     fetchTopItems();
-
+    fetchAudioFeats();
   }, [session, fetchProfile, fetchTopItems]);
 
   return (
     <main className="min-h-screen bg-cover bg-center bg-no-repeat bg-[url('/images/concert.png')]">
-      {isLoading || topArtists.length === 0 || topTracks.length === 0 ? (
+      {isLoading || topArtists.length === 0 || topTracks.length === 0 || audioData.features.length === 0? (
         <LoadingView isLoading={isLoading} />
       ) : (
         <div className="flex px-5 py-5 gap-3 min-h-screen animate-fadeIn">
@@ -45,14 +51,15 @@ export default function DashboardLayout({ children }: DashboardViewProps) {
           {/* Right Side Parent Div */}
           <div className=" w-full flex flex-col gap-5  rounded-2xl">
             {/* Top Timeline Filter Bar */}
-            <RefreshButton onSyncFunction={fetchTopItems}/>
+            <RefreshButton onSyncFunction={fetchTopItems} />
 
             {/* Main Content */}
             <div className=" flex-1 rounded-2xl animate-fadeIn">
               <TopArtistsContext.Provider value={topArtists}>
                 <TopTracksContext.Provider value={topTracks}>
-
-                  {children}
+                  <AudioFeatsContext.Provider value={audioData}>
+                    {children}
+                  </AudioFeatsContext.Provider>
                 </TopTracksContext.Provider>
               </TopArtistsContext.Provider>
               <Toaster />

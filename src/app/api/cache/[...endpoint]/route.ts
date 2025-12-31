@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
-import { fetchTopArtists, fetchTopTracks } from "../cacheApi";
+import { fetchTopArtists, fetchTopTracks, fetchAudioFeats } from "../cacheApi";
 
 export async function GET(
   request: Request,
@@ -24,6 +24,9 @@ export async function GET(
 
       case "fetchTopTracks":
         return NextResponse.json(await fetchTopTracks(session.user.id));
+
+      case "fetchAudioFeats":
+        return NextResponse.json(await fetchAudioFeats(session.user.id));
 
       default:
         return NextResponse.json(

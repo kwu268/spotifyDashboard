@@ -56,6 +56,8 @@ export type TrackFeaturesMinAggregateOutputType = {
   loudness: number | null
   speechiness: number | null
   valence: number | null
+  title: string | null
+  artist: string | null
   userId: string | null
 }
 
@@ -69,6 +71,8 @@ export type TrackFeaturesMaxAggregateOutputType = {
   loudness: number | null
   speechiness: number | null
   valence: number | null
+  title: string | null
+  artist: string | null
   userId: string | null
 }
 
@@ -82,6 +86,9 @@ export type TrackFeaturesCountAggregateOutputType = {
   loudness: number
   speechiness: number
   valence: number
+  artistGenre: number
+  title: number
+  artist: number
   userId: number
   _all: number
 }
@@ -117,6 +124,8 @@ export type TrackFeaturesMinAggregateInputType = {
   loudness?: true
   speechiness?: true
   valence?: true
+  title?: true
+  artist?: true
   userId?: true
 }
 
@@ -130,6 +139,8 @@ export type TrackFeaturesMaxAggregateInputType = {
   loudness?: true
   speechiness?: true
   valence?: true
+  title?: true
+  artist?: true
   userId?: true
 }
 
@@ -143,6 +154,9 @@ export type TrackFeaturesCountAggregateInputType = {
   loudness?: true
   speechiness?: true
   valence?: true
+  artistGenre?: true
+  title?: true
+  artist?: true
   userId?: true
   _all?: true
 }
@@ -243,6 +257,9 @@ export type TrackFeaturesGroupByOutputType = {
   loudness: number
   speechiness: number
   valence: number
+  artistGenre: string[]
+  title: string
+  artist: string
   userId: string
   _count: TrackFeaturesCountAggregateOutputType | null
   _avg: TrackFeaturesAvgAggregateOutputType | null
@@ -279,6 +296,9 @@ export type TrackFeaturesWhereInput = {
   loudness?: Prisma.FloatFilter<"TrackFeatures"> | number
   speechiness?: Prisma.FloatFilter<"TrackFeatures"> | number
   valence?: Prisma.FloatFilter<"TrackFeatures"> | number
+  artistGenre?: Prisma.StringNullableListFilter<"TrackFeatures">
+  title?: Prisma.StringFilter<"TrackFeatures"> | string
+  artist?: Prisma.StringFilter<"TrackFeatures"> | string
   userId?: Prisma.StringFilter<"TrackFeatures"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -293,6 +313,9 @@ export type TrackFeaturesOrderByWithRelationInput = {
   loudness?: Prisma.SortOrder
   speechiness?: Prisma.SortOrder
   valence?: Prisma.SortOrder
+  artistGenre?: Prisma.SortOrder
+  title?: Prisma.SortOrder
+  artist?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -310,6 +333,9 @@ export type TrackFeaturesWhereUniqueInput = Prisma.AtLeast<{
   loudness?: Prisma.FloatFilter<"TrackFeatures"> | number
   speechiness?: Prisma.FloatFilter<"TrackFeatures"> | number
   valence?: Prisma.FloatFilter<"TrackFeatures"> | number
+  artistGenre?: Prisma.StringNullableListFilter<"TrackFeatures">
+  title?: Prisma.StringFilter<"TrackFeatures"> | string
+  artist?: Prisma.StringFilter<"TrackFeatures"> | string
   userId?: Prisma.StringFilter<"TrackFeatures"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "spotifyTrackId">
@@ -324,6 +350,9 @@ export type TrackFeaturesOrderByWithAggregationInput = {
   loudness?: Prisma.SortOrder
   speechiness?: Prisma.SortOrder
   valence?: Prisma.SortOrder
+  artistGenre?: Prisma.SortOrder
+  title?: Prisma.SortOrder
+  artist?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   _count?: Prisma.TrackFeaturesCountOrderByAggregateInput
   _avg?: Prisma.TrackFeaturesAvgOrderByAggregateInput
@@ -345,6 +374,9 @@ export type TrackFeaturesScalarWhereWithAggregatesInput = {
   loudness?: Prisma.FloatWithAggregatesFilter<"TrackFeatures"> | number
   speechiness?: Prisma.FloatWithAggregatesFilter<"TrackFeatures"> | number
   valence?: Prisma.FloatWithAggregatesFilter<"TrackFeatures"> | number
+  artistGenre?: Prisma.StringNullableListFilter<"TrackFeatures">
+  title?: Prisma.StringWithAggregatesFilter<"TrackFeatures"> | string
+  artist?: Prisma.StringWithAggregatesFilter<"TrackFeatures"> | string
   userId?: Prisma.StringWithAggregatesFilter<"TrackFeatures"> | string
 }
 
@@ -358,6 +390,9 @@ export type TrackFeaturesCreateInput = {
   loudness: number
   speechiness: number
   valence: number
+  artistGenre?: Prisma.TrackFeaturesCreateartistGenreInput | string[]
+  title: string
+  artist: string
   user: Prisma.UserCreateNestedOneWithoutTrackFeaturesInput
 }
 
@@ -371,6 +406,9 @@ export type TrackFeaturesUncheckedCreateInput = {
   loudness: number
   speechiness: number
   valence: number
+  artistGenre?: Prisma.TrackFeaturesCreateartistGenreInput | string[]
+  title: string
+  artist: string
   userId: string
 }
 
@@ -384,6 +422,9 @@ export type TrackFeaturesUpdateInput = {
   loudness?: Prisma.FloatFieldUpdateOperationsInput | number
   speechiness?: Prisma.FloatFieldUpdateOperationsInput | number
   valence?: Prisma.FloatFieldUpdateOperationsInput | number
+  artistGenre?: Prisma.TrackFeaturesUpdateartistGenreInput | string[]
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  artist?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutTrackFeaturesNestedInput
 }
 
@@ -397,6 +438,9 @@ export type TrackFeaturesUncheckedUpdateInput = {
   loudness?: Prisma.FloatFieldUpdateOperationsInput | number
   speechiness?: Prisma.FloatFieldUpdateOperationsInput | number
   valence?: Prisma.FloatFieldUpdateOperationsInput | number
+  artistGenre?: Prisma.TrackFeaturesUpdateartistGenreInput | string[]
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  artist?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -410,6 +454,9 @@ export type TrackFeaturesCreateManyInput = {
   loudness: number
   speechiness: number
   valence: number
+  artistGenre?: Prisma.TrackFeaturesCreateartistGenreInput | string[]
+  title: string
+  artist: string
   userId: string
 }
 
@@ -423,6 +470,9 @@ export type TrackFeaturesUpdateManyMutationInput = {
   loudness?: Prisma.FloatFieldUpdateOperationsInput | number
   speechiness?: Prisma.FloatFieldUpdateOperationsInput | number
   valence?: Prisma.FloatFieldUpdateOperationsInput | number
+  artistGenre?: Prisma.TrackFeaturesUpdateartistGenreInput | string[]
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  artist?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TrackFeaturesUncheckedUpdateManyInput = {
@@ -435,6 +485,9 @@ export type TrackFeaturesUncheckedUpdateManyInput = {
   loudness?: Prisma.FloatFieldUpdateOperationsInput | number
   speechiness?: Prisma.FloatFieldUpdateOperationsInput | number
   valence?: Prisma.FloatFieldUpdateOperationsInput | number
+  artistGenre?: Prisma.TrackFeaturesUpdateartistGenreInput | string[]
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  artist?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -458,6 +511,9 @@ export type TrackFeaturesCountOrderByAggregateInput = {
   loudness?: Prisma.SortOrder
   speechiness?: Prisma.SortOrder
   valence?: Prisma.SortOrder
+  artistGenre?: Prisma.SortOrder
+  title?: Prisma.SortOrder
+  artist?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -481,6 +537,8 @@ export type TrackFeaturesMaxOrderByAggregateInput = {
   loudness?: Prisma.SortOrder
   speechiness?: Prisma.SortOrder
   valence?: Prisma.SortOrder
+  title?: Prisma.SortOrder
+  artist?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -494,6 +552,8 @@ export type TrackFeaturesMinOrderByAggregateInput = {
   loudness?: Prisma.SortOrder
   speechiness?: Prisma.SortOrder
   valence?: Prisma.SortOrder
+  title?: Prisma.SortOrder
+  artist?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -549,12 +609,21 @@ export type TrackFeaturesUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.TrackFeaturesScalarWhereInput | Prisma.TrackFeaturesScalarWhereInput[]
 }
 
+export type TrackFeaturesCreateartistGenreInput = {
+  set: string[]
+}
+
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type TrackFeaturesUpdateartistGenreInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type TrackFeaturesCreateWithoutUserInput = {
@@ -567,6 +636,9 @@ export type TrackFeaturesCreateWithoutUserInput = {
   loudness: number
   speechiness: number
   valence: number
+  artistGenre?: Prisma.TrackFeaturesCreateartistGenreInput | string[]
+  title: string
+  artist: string
 }
 
 export type TrackFeaturesUncheckedCreateWithoutUserInput = {
@@ -579,6 +651,9 @@ export type TrackFeaturesUncheckedCreateWithoutUserInput = {
   loudness: number
   speechiness: number
   valence: number
+  artistGenre?: Prisma.TrackFeaturesCreateartistGenreInput | string[]
+  title: string
+  artist: string
 }
 
 export type TrackFeaturesCreateOrConnectWithoutUserInput = {
@@ -620,6 +695,9 @@ export type TrackFeaturesScalarWhereInput = {
   loudness?: Prisma.FloatFilter<"TrackFeatures"> | number
   speechiness?: Prisma.FloatFilter<"TrackFeatures"> | number
   valence?: Prisma.FloatFilter<"TrackFeatures"> | number
+  artistGenre?: Prisma.StringNullableListFilter<"TrackFeatures">
+  title?: Prisma.StringFilter<"TrackFeatures"> | string
+  artist?: Prisma.StringFilter<"TrackFeatures"> | string
   userId?: Prisma.StringFilter<"TrackFeatures"> | string
 }
 
@@ -633,6 +711,9 @@ export type TrackFeaturesCreateManyUserInput = {
   loudness: number
   speechiness: number
   valence: number
+  artistGenre?: Prisma.TrackFeaturesCreateartistGenreInput | string[]
+  title: string
+  artist: string
 }
 
 export type TrackFeaturesUpdateWithoutUserInput = {
@@ -645,6 +726,9 @@ export type TrackFeaturesUpdateWithoutUserInput = {
   loudness?: Prisma.FloatFieldUpdateOperationsInput | number
   speechiness?: Prisma.FloatFieldUpdateOperationsInput | number
   valence?: Prisma.FloatFieldUpdateOperationsInput | number
+  artistGenre?: Prisma.TrackFeaturesUpdateartistGenreInput | string[]
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  artist?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TrackFeaturesUncheckedUpdateWithoutUserInput = {
@@ -657,6 +741,9 @@ export type TrackFeaturesUncheckedUpdateWithoutUserInput = {
   loudness?: Prisma.FloatFieldUpdateOperationsInput | number
   speechiness?: Prisma.FloatFieldUpdateOperationsInput | number
   valence?: Prisma.FloatFieldUpdateOperationsInput | number
+  artistGenre?: Prisma.TrackFeaturesUpdateartistGenreInput | string[]
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  artist?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TrackFeaturesUncheckedUpdateManyWithoutUserInput = {
@@ -669,6 +756,9 @@ export type TrackFeaturesUncheckedUpdateManyWithoutUserInput = {
   loudness?: Prisma.FloatFieldUpdateOperationsInput | number
   speechiness?: Prisma.FloatFieldUpdateOperationsInput | number
   valence?: Prisma.FloatFieldUpdateOperationsInput | number
+  artistGenre?: Prisma.TrackFeaturesUpdateartistGenreInput | string[]
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  artist?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -683,6 +773,9 @@ export type TrackFeaturesSelect<ExtArgs extends runtime.Types.Extensions.Interna
   loudness?: boolean
   speechiness?: boolean
   valence?: boolean
+  artistGenre?: boolean
+  title?: boolean
+  artist?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trackFeatures"]>
@@ -697,6 +790,9 @@ export type TrackFeaturesSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   loudness?: boolean
   speechiness?: boolean
   valence?: boolean
+  artistGenre?: boolean
+  title?: boolean
+  artist?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trackFeatures"]>
@@ -711,6 +807,9 @@ export type TrackFeaturesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   loudness?: boolean
   speechiness?: boolean
   valence?: boolean
+  artistGenre?: boolean
+  title?: boolean
+  artist?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trackFeatures"]>
@@ -725,10 +824,13 @@ export type TrackFeaturesSelectScalar = {
   loudness?: boolean
   speechiness?: boolean
   valence?: boolean
+  artistGenre?: boolean
+  title?: boolean
+  artist?: boolean
   userId?: boolean
 }
 
-export type TrackFeaturesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "spotifyTrackId" | "danceability" | "energy" | "instrumentalness" | "liveness" | "loudness" | "speechiness" | "valence" | "userId", ExtArgs["result"]["trackFeatures"]>
+export type TrackFeaturesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "spotifyTrackId" | "danceability" | "energy" | "instrumentalness" | "liveness" | "loudness" | "speechiness" | "valence" | "artistGenre" | "title" | "artist" | "userId", ExtArgs["result"]["trackFeatures"]>
 export type TrackFeaturesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -754,6 +856,9 @@ export type $TrackFeaturesPayload<ExtArgs extends runtime.Types.Extensions.Inter
     loudness: number
     speechiness: number
     valence: number
+    artistGenre: string[]
+    title: string
+    artist: string
     userId: string
   }, ExtArgs["result"]["trackFeatures"]>
   composites: {}
@@ -1188,6 +1293,9 @@ export interface TrackFeaturesFieldRefs {
   readonly loudness: Prisma.FieldRef<"TrackFeatures", 'Float'>
   readonly speechiness: Prisma.FieldRef<"TrackFeatures", 'Float'>
   readonly valence: Prisma.FieldRef<"TrackFeatures", 'Float'>
+  readonly artistGenre: Prisma.FieldRef<"TrackFeatures", 'String[]'>
+  readonly title: Prisma.FieldRef<"TrackFeatures", 'String'>
+  readonly artist: Prisma.FieldRef<"TrackFeatures", 'String'>
   readonly userId: Prisma.FieldRef<"TrackFeatures", 'String'>
 }
     

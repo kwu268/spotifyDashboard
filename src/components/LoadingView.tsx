@@ -7,9 +7,7 @@ interface LoadingViewProps {
 export function LoadingView({ isLoading }: LoadingViewProps) {
   return (
     <div
-      className={`flex items-center justify-center min-h-screen rounded-2xl bg-gradient-transparent ${
-        isLoading && "animate-fadeOut"
-      }`}
+      className={`flex items-center justify-center min-h-screen bg-gradient-transparent `}
     >
       <div className="flex flex-col items-center gap-4 relative">
         <div className="w-52 h-52 bottom-9 border-3 border-green-600 border-t-green-500 rounded-full animate-spin flex items-center justify-center">

@@ -32,6 +32,8 @@ export async function POST(request: Request) {
         await prisma.trackFeatures.create({
           data: {
             userId: session.user.id,
+            title: topTracks[i].title,
+            artist: topTracks[i].artist,
             spotifyTrackId: currentTrackId,
             danceability: audioFeats.danceability,
             energy: audioFeats.energy,
@@ -40,6 +42,7 @@ export async function POST(request: Request) {
             loudness: audioFeats.loudness,
             speechiness: audioFeats.speechiness,
             valence: audioFeats.valence,
+            artistGenre: topTracks[i].artistGenre,
           },
         });
       }

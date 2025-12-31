@@ -168,6 +168,9 @@ export const TrackFeaturesScalarFieldEnum = {
   loudness: 'loudness',
   speechiness: 'speechiness',
   valence: 'valence',
+  artistGenre: 'artistGenre',
+  title: 'title',
+  artist: 'artist',
   userId: 'userId'
 } as const
 

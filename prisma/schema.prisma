@@ -106,8 +106,8 @@ model TopTrack {
 }
 
 model TrackFeatures {
-  id               String  @id @default(cuid())
-  spotifyTrackId   String  @unique
+  id               String   @id @default(cuid())
+  spotifyTrackId   String   @unique
   danceability     Float
   energy           Float
   instrumentalness Float
@@ -115,9 +115,13 @@ model TrackFeatures {
   loudness         Float
   speechiness      Float
   valence          Float
+  artistGenre      String[]
+  title            String
+  artist           String
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
+
   @@index([spotifyTrackId])
 }
 
